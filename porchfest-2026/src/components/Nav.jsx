@@ -28,16 +28,16 @@ export default function Nav() {
     left: 0,
     right: 0,
     zIndex: 100,
-    padding: '14px 24px',
+    padding: 'max(14px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) 14px max(24px, env(safe-area-inset-left))',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     transition: 'background .4s, box-shadow .4s',
     ...(scrolled ? {
-      background: 'rgba(26,24,22,.94)',
+      background: 'rgba(26,24,22,.55)',
       backdropFilter: 'blur(16px)',
       WebkitBackdropFilter: 'blur(16px)',
-      boxShadow: '0 2px 20px rgba(0,0,0,.3)',
+      boxShadow: '0 2px 20px rgba(0,0,0,.15)',
     } : {}),
   };
 
@@ -110,9 +110,14 @@ export default function Nav() {
             <a href="#gallery" onClick={(e) => handleAnchor(e, 'gallery')} style={linkStyle} className="nav-link-hide">Gallery</a>
           </>
         )}
-        <Link to="/apply" style={ctaStyle}>Apply Now</Link>
+        <Link to="/apply" style={ctaStyle} className="nav-cta">Apply Now</Link>
       </div>
-      <style>{`@media(max-width:640px){.nav-link-hide{display:none!important}}`}</style>
+      <style>{`
+        @media(max-width:640px){
+          .nav-link-hide{display:none!important}
+          .nav-cta{padding:11px 20px!important}
+        }
+      `}</style>
     </nav>
   );
 }

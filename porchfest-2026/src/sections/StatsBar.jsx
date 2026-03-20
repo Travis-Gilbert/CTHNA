@@ -19,7 +19,7 @@ export default function StatsBar() {
       }}>
         {STATS.map((stat, i) => (
           <ScrollReveal key={stat.label} delay={i} style={{ textAlign: 'center' }}>
-            <div style={{ ...serif, fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: C.burgBright, lineHeight: 1 }}>
+            <div className="st-n" style={{ ...serif, fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: C.burgBright, lineHeight: 1 }}>
               {stat.value}
             </div>
             <div style={{ ...mono, fontSize: 10, textTransform: 'uppercase', letterSpacing: '.12em', color: 'rgba(240,235,228,.32)', marginTop: 8 }}>
@@ -28,7 +28,7 @@ export default function StatsBar() {
           </ScrollReveal>
         ))}
       </div>
-      <style>{`@media(max-width:640px){.stats-grid{grid-template-columns:1fr 1fr!important}}`}</style>
+      <style>{`@media(max-width:640px){.stats-grid{grid-template-columns:1fr 1fr!important}.st-n{font-size:36px!important}}`}</style>
     </div>
   );
 }

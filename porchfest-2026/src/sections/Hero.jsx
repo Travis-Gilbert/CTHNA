@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import Button from '../components/Button';
+import ResponsiveImg from '../components/ResponsiveImg';
 import { C, serif, sans, mono } from '../tokens';
 import { HERO_COPY, PHOTOS } from '../porchfest-data';
 
@@ -45,8 +46,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <div ref={wrapperRef} style={{ height: '200vh', position: 'relative' }}>
-      <section style={{
+    <div ref={wrapperRef} className="hero-wrapper" style={{ height: '200vh', position: 'relative' }}>
+      <section className="hero-section" style={{
         position: 'sticky',
         top: 0,
         height: '100vh',
@@ -58,20 +59,32 @@ export default function Hero() {
       }}>
         {/* Background poster with scroll-driven pan */}
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-          <img
-            ref={bgRef}
-            src={PHOTOS.hero}
-            alt="Porchfest 2026 poster: handcrafted stop-motion scene of musicians playing guitar and banjo on a front porch in Carriage Town"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center 0%',
-              opacity: loaded ? 1 : 0,
-              transition: 'opacity 1.2s cubic-bezier(.16,1,.3,1)',
-            }}
-            loading="eager"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet="/photos/poster-hero-sm.webp 640w"
+              sizes="100vw"
+            />
+            <img
+              ref={bgRef}
+              src={PHOTOS.hero}
+              srcSet="/photos/poster-hero-sm.jpg 640w"
+              sizes="100vw"
+              alt="Porchfest 2026 poster: handcrafted stop-motion scene of musicians playing guitar and banjo on a front porch in Carriage Town"
+              width={1179}
+              height={1822}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center 0%',
+                opacity: loaded ? 1 : 0,
+                transition: 'opacity 2.4s cubic-bezier(.16,1,.3,1)',
+              }}
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
           <div style={{
             position: 'absolute',
             inset: 0,
@@ -104,14 +117,14 @@ export default function Hero() {
                 width: loaded ? 28 : 0,
                 height: 2,
                 background: C.tealBright,
-                transition: 'width .6s cubic-bezier(.16,1,.3,1) .3s',
+                transition: 'width 1.2s cubic-bezier(.16,1,.3,1) .6s',
               }} />
               {HERO_COPY.tag} <span style={{ color: C.burgBright }}>{HERO_COPY.tagAccent}</span> &middot; {HERO_COPY.tagSuffix}
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={1} distance={30}>
-            <h1 style={{
+            <h1 className="hero-h1" style={{
               ...serif,
               fontSize: 'clamp(48px, 10vw, 96px)',
               fontWeight: 600,
@@ -168,7 +181,7 @@ export default function Hero() {
           alignItems: 'center',
           gap: 6,
           opacity: loaded ? 1 : 0,
-          transition: 'opacity 1s ease 1.2s',
+          transition: 'opacity 2s ease 2.4s',
         }}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="hero-arrow">
             <path d="M10 4v12M5 11l5 5 5-5" stroke="rgba(240,235,228,.25)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -177,9 +190,16 @@ export default function Hero() {
         </div>
 
         <style>{`
-          .hero-arrow{animation:heroFloat 2.5s ease-in-out infinite}
+          .hero-arrow{animation:heroFloat 5s ease-in-out infinite}
           @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-          @media(max-width:640px){.hero-actions{flex-direction:column}}
+          @media(max-width:640px){
+            .hero-wrapper{height:100vh!important}
+            .hero-section{position:relative!important}
+            .hero-scroll-hint{display:none!important}
+            .hero-actions{flex-direction:column;width:100%}
+            .hero-actions a,.hero-actions button{width:100%;justify-content:center;text-align:center}
+            .hero-h1{font-size:44px!important;max-width:100%!important}
+          }
           @media(prefers-reduced-motion:reduce){.hero-arrow{animation:none}.hero-scroll-hint{opacity:1!important;transition:none!important}}
         `}</style>
       </section>

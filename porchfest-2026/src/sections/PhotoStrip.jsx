@@ -1,4 +1,5 @@
 import ScrollReveal from '../components/ScrollReveal';
+import ResponsiveImg from '../components/ResponsiveImg';
 import { C } from '../tokens';
 import { PHOTOS } from '../porchfest-data';
 
@@ -19,9 +20,12 @@ export default function PhotoStrip() {
     }}>
       {PHOTOS.strip.map((src, i) => (
         <ScrollReveal key={src} delay={i} direction="scale" distance={28}>
-          <img
+          <ResponsiveImg
             src={src}
             alt={alts[i]}
+            width={2000}
+            height={1333}
+            sizes="25vw"
             loading="lazy"
             className="pstrip-img"
             style={{

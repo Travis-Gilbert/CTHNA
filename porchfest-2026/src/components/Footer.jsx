@@ -32,6 +32,7 @@ export default function Footer() {
         <span style={{ ...mono, fontSize: 10, textTransform: 'uppercase', letterSpacing: '.1em', color: faint }}>&copy; 2026 Carriage Town Historic Neighborhood Association</span>
         <span style={{ ...mono, fontSize: 10, textTransform: 'uppercase', letterSpacing: '.1em', color: faint }}>Flint, Michigan</span>
       </div>
+      <style>{`@media(max-width:640px){footer a{margin-bottom:12px!important;padding:4px 0}}`}</style>
     </footer>
   );
 }

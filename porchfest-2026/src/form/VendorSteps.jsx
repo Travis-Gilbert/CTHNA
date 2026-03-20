@@ -32,7 +32,7 @@ export default function VendorSteps({ step, data, onChange, errors }) {
           </div>
         </Field>
         <Field label="Social media / website" htmlFor="vendorLink">
-          <TInput id="vendorLink" value={data.vendorLink} onChange={v => onChange('vendorLink', v)} placeholder="https://" />
+          <TInput id="vendorLink" type="url" value={data.vendorLink} onChange={v => onChange('vendorLink', v)} placeholder="https://" />
         </Field>
       </>
     );

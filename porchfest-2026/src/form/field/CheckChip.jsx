@@ -5,10 +5,12 @@ export default function CheckChip({ name, value, checked, onChange, label }) {
   return (
     <label
       htmlFor={id}
+      className="check-chip"
       style={{
         display: 'inline-flex',
         alignItems: 'center',
         padding: '8px 14px',
+        minHeight: 44,
         borderRadius: 20,
         border: `1.5px solid ${checked ? C.teal : C.border}`,
         background: checked ? C.tealDim : 'transparent',

@@ -30,7 +30,7 @@ export default function EntertainerStep({ step, data, onChange, errors }) {
         <TTextarea id="actDescription" value={data.actDescription} onChange={v => onChange('actDescription', v)} placeholder="What should we expect?" rows={5} />
       </Field>
       <Field label="Link to your work" hint="Website, social media, video, etc." htmlFor="workLink">
-        <TInput id="workLink" value={data.workLink} onChange={v => onChange('workLink', v)} placeholder="https://" />
+        <TInput id="workLink" type="url" value={data.workLink} onChange={v => onChange('workLink', v)} placeholder="https://" />
       </Field>
     </>
   );

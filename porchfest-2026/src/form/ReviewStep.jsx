@@ -132,7 +132,8 @@ export default function ReviewStep({ category, formData, contact, agree, onAgree
           type="checkbox"
           checked={agree}
           onChange={e => onAgree(e.target.checked)}
-          style={{ marginTop: 3, accentColor: accent }}
+          className="consent-check"
+          style={{ marginTop: 3, accentColor: accent, width: 22, height: 22, minWidth: 22 }}
         />
         <span style={{ ...sans, fontSize: 13, color: C.inkMuted, lineHeight: 1.6 }}>
           I confirm the information above is accurate. I understand that submitting an application does not guarantee selection. Carriage Town Porchfest may use submitted materials for event promotion.

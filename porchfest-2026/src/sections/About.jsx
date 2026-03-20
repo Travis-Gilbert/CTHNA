@@ -1,4 +1,5 @@
 import ScrollReveal from '../components/ScrollReveal';
+import ResponsiveImg from '../components/ResponsiveImg';
 import { C, serif, sans, mono, tagStyle, shStyle } from '../tokens';
 import { ABOUT_COPY, PHOTOS } from '../porchfest-data';
 
@@ -57,12 +58,14 @@ export default function About() {
         {/* Photo column - slides in from right */}
         <ScrollReveal direction="left" delay={1}>
           <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden' }}>
-            <img
+            <ResponsiveImg
               src={PHOTOS.porchSinger}
               alt="Singer performing on a brick porch with string lights, audience watching from lawn chairs"
-              style={{ width: '100%', height: 480, objectFit: 'cover' }}
+              width={2000}
+              height={1333}
               loading="lazy"
               className="about-photo"
+              style={{ width: '100%', height: 480, objectFit: 'cover' }}
             />
             <div style={{
               position: 'absolute',

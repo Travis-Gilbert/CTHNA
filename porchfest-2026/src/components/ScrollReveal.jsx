@@ -42,7 +42,7 @@ export default function ScrollReveal({
     return () => obs.disconnect();
   }, []);
 
-  const delayS = delay * 0.1;
+  const delayS = delay * 0.2;
 
   const transforms = {
     up: `translateY(${distance}px)`,
@@ -61,8 +61,8 @@ export default function ScrollReveal({
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0) translateX(0) scale(1)' : hiddenTransform,
         transition: [
-          `opacity .7s cubic-bezier(.16,1,.3,1) ${delayS}s`,
-          `transform .7s cubic-bezier(.16,1,.3,1) ${delayS}s`,
+          `opacity 1.4s cubic-bezier(.16,1,.3,1) ${delayS}s`,
+          `transform 1.4s cubic-bezier(.16,1,.3,1) ${delayS}s`,
         ].join(', '),
         willChange: visible ? 'auto' : 'opacity, transform',
         ...style,

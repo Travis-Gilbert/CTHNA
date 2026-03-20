@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
+import ResponsiveImg from '../components/ResponsiveImg';
 import { C, serif, sans, mono, tagStyle } from '../tokens';
 import { CATEGORIES, PHOTOS, accentColor, accentBright, accentDim } from '../porchfest-data';
 
@@ -94,9 +95,11 @@ export default function ApplyCTA() {
           </ScrollReveal>
           <ScrollReveal delay={2}>
             <div style={{ borderRadius: 12, overflow: 'hidden' }}>
-              <img
+              <ResponsiveImg
                 src={PHOTOS.goldenHour}
                 alt="Family walking through Carriage Town at sunset"
+                width={2048}
+                height={1496}
                 loading="lazy"
                 style={{ width: '100%', height: 320, objectFit: 'cover' }}
               />

@@ -20,10 +20,10 @@ export default function MusicianSteps({ step, data, onChange, errors }) {
         <p style={{ ...sans, fontSize: 14, color: C.inkMuted, marginBottom: 24 }}>Share your sound. We listen to every submission.</p>
 
         <Field label="Music link *" hint="SoundCloud, Bandcamp, Spotify, YouTube, etc." htmlFor="musicLink" error={errors.musicLink}>
-          <TInput id="musicLink" value={data.musicLink} onChange={v => onChange('musicLink', v)} placeholder="https://" />
+          <TInput id="musicLink" type="url" value={data.musicLink} onChange={v => onChange('musicLink', v)} placeholder="https://" />
         </Field>
         <Field label="Second link" hint="Optional. Another sample, video, or press kit." htmlFor="musicLink2">
-          <TInput id="musicLink2" value={data.musicLink2} onChange={v => onChange('musicLink2', v)} placeholder="https://" />
+          <TInput id="musicLink2" type="url" value={data.musicLink2} onChange={v => onChange('musicLink2', v)} placeholder="https://" />
         </Field>
         <Field label="Artist / band name *" htmlFor="artistName" error={errors.artistName}>
           <TInput id="artistName" value={data.artistName} onChange={v => onChange('artistName', v)} placeholder="Your name or band name" />

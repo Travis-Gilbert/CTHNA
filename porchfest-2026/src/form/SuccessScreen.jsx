@@ -18,7 +18,7 @@ export default function SuccessScreen({ name }) {
   const enter = (delay, y = 20) => ({
     opacity: show ? 1 : 0,
     transform: show ? 'translateY(0) scale(1)' : `translateY(${y}px)`,
-    transition: `opacity .7s ${ease} ${delay}s, transform .7s ${ease} ${delay}s`,
+    transition: `opacity 1.4s ${ease} ${delay}s, transform 1.4s ${ease} ${delay}s`,
   });
 
   return (
@@ -45,7 +45,7 @@ export default function SuccessScreen({ name }) {
             strokeLinejoin="round"
             strokeDasharray="28"
             strokeDashoffset={show ? 0 : 28}
-            style={{ transition: `stroke-dashoffset .5s ${ease} .4s` }}
+            style={{ transition: `stroke-dashoffset 1s ${ease} .8s` }}
           />
         </svg>
       </div>
@@ -102,7 +102,7 @@ export default function SuccessScreen({ name }) {
           padding: '14px 28px',
           borderRadius: 8,
           border: '1.5px solid rgba(240,235,228,.2)',
-          transition: `border-color .2s, opacity .7s ${ease} .45s, transform .7s ${ease} .45s`,
+          transition: `border-color .2s, opacity 1.4s ${ease} .9s, transform 1.4s ${ease} .9s`,
           ...enter(0.45),
         }}
       >

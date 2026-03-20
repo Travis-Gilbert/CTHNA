@@ -1,4 +1,5 @@
 import ScrollReveal from '../components/ScrollReveal';
+import ResponsiveImg from '../components/ResponsiveImg';
 import { C, serif, sans, mono } from '../tokens';
 import { PHOTOS } from '../porchfest-data';
 
@@ -41,9 +42,11 @@ export default function Gallery() {
             style={gridStyles[photo.cls]}
           >
             <div className="gal-item" style={{ borderRadius: 8, overflow: 'hidden', position: 'relative', height: '100%' }}>
-              <img
+              <ResponsiveImg
                 src={photo.src}
                 alt={photo.alt}
+                width={2048}
+                height={1366}
                 loading="lazy"
                 className="gal-img"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform .6s cubic-bezier(.16,1,.3,1), filter .6s ease' }}
@@ -66,8 +69,8 @@ export default function Gallery() {
         .gal-item:hover .gal-overlay{opacity:1}
         @media(max-width:640px){
           .gal-grid{grid-template-columns:1fr 1fr!important}
-          .gi-g1{grid-column:1/-1!important;min-height:220px!important}
-          .gi-g2,.gi-g3,.gi-g4,.gi-g5{grid-column:auto!important;min-height:180px!important}
+          .gi-g1{grid-column:1/-1!important;min-height:200px!important}
+          .gi-g2,.gi-g3,.gi-g4,.gi-g5{grid-column:auto!important;min-height:160px!important}
         }
       `}</style>
     </section>

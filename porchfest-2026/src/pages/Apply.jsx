@@ -122,8 +122,20 @@ export default function Apply() {
     return Object.keys(errs).length === 0;
   };
 
+  const scrollToFirstError = () => {
+    requestAnimationFrame(() => {
+      const firstError = document.querySelector('[role="alert"]');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  };
+
   const handleNext = () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      scrollToFirstError();
+      return;
+    }
     if (stage === 'form') {
       const maxStep = STEP_COUNTS[category] - 1;
       if (innerStep < maxStep) {
@@ -305,7 +317,7 @@ export default function Apply() {
 
           {/* Nav buttons (not on review -- review has its own submit) */}
           {stage !== 'review' && (
-            <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
+            <div className="form-nav" style={{ display: 'flex', gap: 12, marginTop: 32 }}>
               <button
                 onClick={handleBack}
                 style={{
@@ -347,6 +359,25 @@ export default function Apply() {
           )}
         </div>
       </div>
+      <style>{`
+        @media(max-width:640px){
+          input,textarea,select{font-size:16px!important}
+          .form-nav{
+            position:sticky;
+            bottom:0;
+            background:${C.paper};
+            padding:16px 20px;
+            border-top:1px solid ${C.border};
+            margin:0 -clamp(20px,5vw,40px);
+            padding-left:clamp(20px,5vw,40px);
+            padding-right:clamp(20px,5vw,40px);
+            padding-bottom:max(16px,env(safe-area-inset-bottom));
+            z-index:10;
+          }
+          .form-grid-2{grid-template-columns:1fr!important}
+          .review-grid{grid-template-columns:1fr!important}
+        }
+      `}</style>
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function OtherStep({ step, data, onChange, errors }) {
         <TTextarea id="proposal" value={data.proposal} onChange={v => onChange('proposal', v)} placeholder="Describe what you want to do at Porchfest" rows={6} />
       </Field>
       <Field label="Links" hint="Website, social media, portfolio, etc." htmlFor="otherLinks">
-        <TInput id="otherLinks" value={data.otherLinks} onChange={v => onChange('otherLinks', v)} placeholder="https://" />
+        <TInput id="otherLinks" type="url" value={data.otherLinks} onChange={v => onChange('otherLinks', v)} placeholder="https://" />
       </Field>
     </>
   );
