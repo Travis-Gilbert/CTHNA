@@ -160,6 +160,20 @@ All design tokens as defined in Section 5.
 ### New file: `src/porchfest-data.js`
 Central data file. ALL copy, categories, form options, photo paths, metadata. Contains: META object, STATS array, CATEGORIES array (with inline SVG icon functions and accent token refs), GENRES, SETUP_NEEDS, FOOD_TYPES, VENDOR_NEEDS, ENT_TYPES arrays, HOW_STEPS array, ABOUT_COPY object, PHOTOS object, HERO_COPY object.
 
+**Critical copy corrections (do NOT carry over from the prototype without these fixes):**
+
+1. **All date references**: The event is **Friday, July 17, 2026** (not Saturday).
+2. **Application hero paragraph**: Use "Carriage Town Porchfest is Flint's free, walkable neighborhood music festival. Every July, performers take over front porches, street corners, and stages across a six-block stretch of Carriage Town while thousands of people wander from act to act all afternoon. The 7th edition is Friday, July 17, 2026 and we want you there."
+3. **About FAQ card "When and where?"**: Use "Friday, July 17, 2026. Carriage Town neighborhood, Flint, Michigan. The festival runs from the afternoon into the evening."
+4. **Entertainer step intro**: Do NOT use "Porchfest is not just music." Instead use: "Porchfest is music, comedy, visual art, and whatever else makes a block party come alive. Last year we had comedians, chalk artists, street performers, and a kids zone. We want even more of that energy in 2026. Tell us what you are bringing."
+5. **General rule**: Avoid "no X, it's Y" sentence constructions throughout all copy. Write affirmative statements about what the event IS, not what it is not.
+
+**Category accent mapping (different from prototype):**
+- Musician: teal (C.teal)
+- Vendor: gold (C.gold)
+- Entertainer: burgundy (C.burg)
+- Other: neutral (C.inkLight)
+
 ### New file: `src/components/Nav.jsx`
 Client component. Fixed top nav. Left: burgundy "P" circle + "Porchfest 2026" mono. Right: text links (About, Gallery) hidden on mobile + teal "Apply Now" button. Transparent by default, dark backdrop + blur on scroll. On apply page: hide About/Gallery links.
 
@@ -227,7 +241,7 @@ Dark bar. Burgundy tag "Sponsors", headline, body, teal CTA mailto.
 ## Batch 2: Application Page
 
 ### Read first
-- `docs/prototypes/porchfest-apply.jsx` (all form logic)
+- `docs/prototypes/porchfest-apply.jsx` (form logic reference, but apply copy corrections from this spec)
 - `src/porchfest-data.js`, `src/tokens.js`, `src/components/Nav.jsx`
 
 ### New file: `src/pages/Apply.jsx`
@@ -236,22 +250,82 @@ Client component. State: stage, category, innerStep, formData, contact, agree, e
 ### New file: `src/form/CategorySelect.jsx`
 Short dark hero, stats, 2x2 category card grid, "About the Event" FAQ cards.
 
+**Copy corrections for this component:**
+- Hero paragraph: use the corrected version from Batch 0 copy corrections (mentions Friday, stages + porches)
+- FAQ "When and where?" card: "Friday, July 17, 2026" (not Saturday)
+
 ### New file: `src/form/StepDots.jsx`
 Progress dots. Active wider + colored. Step counter.
 
-### New files: MusicianSteps.jsx (3 steps), VendorSteps.jsx (2 steps), EntertainerStep.jsx (1 step), OtherStep.jsx (1 step)
-Port from prototype. See prototype for exact fields per step.
+### Musician form: `src/form/MusicianSteps.jsx` (3 steps)
 
-### New file: `src/form/ContactStep.jsx`
-Name (required), email (required + validated), phone, city.
+**Step 0 ("Where's your music?"):** music link (required), second link, artist name (required), genre (required select), band size (select). Copy is good as-is in prototype.
 
-### New file: `src/form/ReviewStep.jsx`
-Summary card, consent checkbox, submit.
+**Step 1 ("Tell us about your act"):** bio (required textarea), then TWO separate questions (this is a change from the prototype):
 
-### New file: `src/form/SuccessScreen.jsx`
-Full dark screen, checkmark, confirmation message.
+1. **"Have you played Porchfest before?"** (radio, required)
+   - "First time applying"
+   - "Returning performer"
 
-### New files: field/TInput.jsx, TTextarea.jsx, TSelect.jsx, RadioCard.jsx, CheckChip.jsx, Field.jsx
+2. **"Are you based in Flint?"** (radio)
+   - "Yes, Flint-based"
+   - "Nearby (Genesee County)"
+   - "Outside the area"
+
+The prototype had these combined as a single "Porchfest History" radio with three options that weren't mutually exclusive. The split fixes the logic: someone can be both a returning performer AND Flint-based.
+
+Add both fields to formData: `porchfestHistory` (required) and `flintBased` (optional).
+
+**Step 2 ("What do you need on site?"):** set length (required radio: 30/45/60 min), equipment needs (check chips), bring own PA (radio), accessibility needs (textarea). Copy is good as-is.
+
+### Vendor form: `src/form/VendorSteps.jsx` (2 steps)
+Port from prototype. Copy is good. No changes needed.
+
+### Entertainer form: `src/form/EntertainerStep.jsx` (1 step)
+
+**Copy correction for the intro paragraph.** Do NOT use "Porchfest is not just music." Instead:
+
+Tag: "Your act"
+Headline: "What do you do?"
+Body: "Porchfest is music, comedy, visual art, and whatever else makes a block party come alive. Last year we had comedians, chalk artists, street performers, and a kids zone. We want even more of that energy in 2026. Tell us what you are bringing."
+
+Fields: act name (required), act type (check chips), act description (required textarea), work link. Same as prototype.
+
+### Other form: `src/form/OtherStep.jsx` (1 step)
+Port from prototype. Keep it minimal (name, description, link). No setup needs field. Copy is good as-is.
+
+### Contact step: `src/form/ContactStep.jsx`
+Name (required), email (required + validated), phone, city. Copy is good as-is.
+
+### Review step: `src/form/ReviewStep.jsx`
+
+**Structural change from prototype: show ALL submitted data, not just key fields.**
+
+The prototype only showed a subset (contact, genre, set length, music link). The updated review page should show every field the applicant filled in.
+
+Layout:
+- Dark header with category icon + display name (artist name / business name / act name / org name)
+- Body section: 2-column grid for short fields (contact, email, genre, set length, city, etc.)
+- Full-width blocks for long-form content (bio, food description, act description, proposal). These should display the full text, not truncated. Use a slightly different visual treatment: left border accent in category color, lighter background, full paragraph display.
+- Equipment/type selections shown as inline chip-style labels
+
+Field display order by category:
+
+**Musician:** Contact, Email, City, Artist Name, Genre, Band Size, Set Length, Porchfest History, Flint-Based, Music Link, Second Link, Bio (full), Equipment Needs (chips), PA Status, Accessibility Needs (full if provided)
+
+**Vendor:** Contact, Email, City, Business Name, Vendor Type (chips), Instagram/Website, Footprint, On-Site Needs (chips), Vended Before, Food Description (full)
+
+**Entertainer:** Contact, Email, City, Act Name, Act Type (chips), Work Link, Act Description (full)
+
+**Other:** Contact, Email, City, Name/Org, Links, Proposal (full)
+
+After the data display: consent checkbox + legal copy + info box about Flint priority. Same as prototype.
+
+### Success screen: `src/form/SuccessScreen.jsx`
+Full dark screen, checkmark, confirmation message. Port from prototype, copy is good.
+
+### Form field components: `src/form/field/`
+TInput.jsx, TTextarea.jsx, TSelect.jsx, RadioCard.jsx, CheckChip.jsx, Field.jsx
 
 **Critical accessibility fixes from prototype:**
 - Hidden inputs: use sr-only positioning, NOT display:none
@@ -260,11 +334,27 @@ Full dark screen, checkmark, confirmation message.
 - Field: htmlFor/id pairs
 - Errors: role="alert" aria-live="polite"
 
+### Validation changes
+Add validation for the new `porchfestHistory` field on musician step 1:
+```javascript
+if (innerStep === 1) {
+  if (!d.bio.trim()) e.bio = "Required";
+  if (!d.porchfestHistory) e.porchfestHistory = "Required";
+}
+```
+
 ### Verification
 - [ ] All 4 category flows work
 - [ ] URL param pre-selection works
+- [ ] Musician step 1 shows TWO separate questions (history + Flint-based)
+- [ ] Validation fires on porchfestHistory (required) but not flintBased (optional)
+- [ ] Review page shows ALL submitted data including full bio/description text
+- [ ] Review page long-form fields display as full paragraphs, not truncated
+- [ ] Entertainer intro uses corrected copy (affirmative, not "not just music")
+- [ ] All date references say "Friday" not "Saturday"
 - [ ] Validation, error display, email format check
-- [ ] Formspree POST fires
+- [ ] Formspree POST fires (includes porchfestHistory and flintBased fields)
+- [ ] Consent checkbox blocks submit when unchecked
 - [ ] Keyboard navigation works through all fields
 - [ ] `npm run build` passes
 
@@ -306,6 +396,6 @@ Landing "Apply to Perform" > /apply. Category cards > /apply?cat=X. Apply "Back"
 | File | Contents | Use for |
 |------|----------|---------|
 | `docs/prototypes/porchfest-landing-v3.html` | Full landing page | Layout, copy, colors, responsive, scroll timing |
-| `docs/prototypes/porchfest-apply.jsx` | Complete application form | Form logic, validation, step flow, field layout, copy |
+| `docs/prototypes/porchfest-apply.jsx` | Application form (original) | Form logic, validation, step flow, field layout. **Apply copy corrections from this spec before using.** |
 
-Read both at the start of every batch.
+Read both at the start of every batch. The spec overrides the prototype wherever they conflict.
