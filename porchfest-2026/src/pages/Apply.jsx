@@ -1,21 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { C, serif, sans, mono } from '../tokens';
-import { CATEGORIES, accentColor, accentBright, accentDim } from '../porchfest-data';
+import { CATEGORIES, accentColor } from '../porchfest-data';
 import CategorySelect from '../form/CategorySelect';
-import StepDots from '../form/StepDots';
-import MusicianSteps from '../form/MusicianSteps';
-import VendorSteps from '../form/VendorSteps';
-import EntertainerStep from '../form/EntertainerStep';
-import OtherStep from '../form/OtherStep';
-import ContactStep from '../form/ContactStep';
+import ApplicationForm from '../form/ApplicationForm';
 import ReviewStep from '../form/ReviewStep';
 import SuccessScreen from '../form/SuccessScreen';
 
 const STORAGE_KEY = 'porchfest-2026-application';
 const FORMSPREE = 'https://formspree.io/f/mbdzblrb';
-
-const STEP_COUNTS = { musician: 3, vendor: 2, entertainer: 1, other: 1 };
 
 function getInitialState() {
   try {
@@ -31,7 +24,6 @@ export default function Apply() {
 
   const [stage, setStage] = useState(saved?.stage || 'category');
   const [category, setCategory] = useState(saved?.category || null);
-  const [innerStep, setInnerStep] = useState(saved?.innerStep || 0);
   const [formData, setFormData] = useState(saved?.formData || {});
   const [contact, setContact] = useState(saved?.contact || { name: '', email: '', phone: '', city: '' });
   const [agree, setAgree] = useState(false);
@@ -54,15 +46,15 @@ export default function Apply() {
     if (stage === 'done') return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        stage, category, innerStep, formData, contact,
+        stage, category, formData, contact,
       }));
     } catch {}
-  }, [stage, category, innerStep, formData, contact]);
+  }, [stage, category, formData, contact]);
 
-  // Scroll to top on stage/step change
+  // Scroll to top on stage change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [stage, innerStep]);
+  }, [stage]);
 
   const updateField = useCallback((key, value) => {
     setFormData(prev => ({ ...prev, [key]: value }));
@@ -84,40 +76,35 @@ export default function Apply() {
 
   const validateForm = () => {
     const errs = {};
-    if (stage === 'form') {
-      if (category === 'musician') {
-        if (innerStep === 0) {
-          if (!formData.musicLink) errs.musicLink = 'Please add a music link';
-          if (!formData.artistName) errs.artistName = 'Required';
-          if (!formData.genre) errs.genre = 'Pick a genre';
-        }
-        if (innerStep === 1) {
-          if (!formData.bio) errs.bio = 'Tell us about yourself';
-        }
-        if (innerStep === 2) {
-          if (!formData.setLength) errs.setLength = 'Pick a set length';
-        }
-      }
-      if (category === 'vendor') {
-        if (innerStep === 0) {
-          if (!formData.businessName) errs.businessName = 'Required';
-          if (!formData.foodDescription) errs.foodDescription = 'Tell us what you serve';
-        }
-      }
-      if (category === 'entertainer') {
-        if (!formData.actName) errs.actName = 'Required';
-        if (!formData.actDescription) errs.actDescription = 'Tell us about your act';
-      }
-      if (category === 'other') {
-        if (!formData.orgName) errs.orgName = 'Required';
-        if (!formData.proposal) errs.proposal = 'Tell us your idea';
-      }
+    const d = formData;
+
+    // Contact validation
+    if (!contact.name) errs.name = 'Required';
+    if (!contact.email) errs.email = 'Required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) errs.email = 'Enter a valid email';
+
+    // Category-specific validation
+    if (category === 'musician') {
+      if (!d.musicLink) errs.musicLink = 'Please add a music link';
+      if (!d.artistName) errs.artistName = 'Required';
+      if (!d.genre) errs.genre = 'Pick a genre';
+      if (!d.bio?.trim()) errs.bio = 'Tell us about yourself';
+      if (!d.porchfestHistory) errs.porchfestHistory = 'Required';
+      if (!d.canDoThirty) errs.canDoThirty = 'Required';
     }
-    if (stage === 'contact') {
-      if (!contact.name) errs.name = 'Required';
-      if (!contact.email) errs.email = 'Required';
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) errs.email = 'Enter a valid email';
+    if (category === 'vendor') {
+      if (!d.businessName) errs.businessName = 'Required';
+      if (!d.foodDescription) errs.foodDescription = 'Tell us what you serve';
     }
+    if (category === 'entertainer') {
+      if (!d.actName) errs.actName = 'Required';
+      if (!d.actDescription) errs.actDescription = 'Tell us about your act';
+    }
+    if (category === 'other') {
+      if (!d.orgName) errs.orgName = 'Required';
+      if (!d.proposal) errs.proposal = 'Tell us your idea';
+    }
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -131,36 +118,21 @@ export default function Apply() {
     });
   };
 
-  const handleNext = () => {
+  const handleReview = () => {
     if (!validateForm()) {
       scrollToFirstError();
       return;
     }
-    if (stage === 'form') {
-      const maxStep = STEP_COUNTS[category] - 1;
-      if (innerStep < maxStep) {
-        setInnerStep(innerStep + 1);
-      } else {
-        setStage('contact');
-      }
-    } else if (stage === 'contact') {
-      setStage('review');
-    }
+    setStage('review');
   };
 
   const handleBack = () => {
     setErrors({});
     if (stage === 'review') {
-      setStage('contact');
-    } else if (stage === 'contact') {
       setStage('form');
-      setInnerStep(STEP_COUNTS[category] - 1);
-    } else if (stage === 'form' && innerStep > 0) {
-      setInnerStep(innerStep - 1);
-    } else {
+    } else if (stage === 'form') {
       setStage('category');
       setCategory(null);
-      setInnerStep(0);
     }
   };
 
@@ -198,7 +170,6 @@ export default function Apply() {
     localStorage.removeItem(STORAGE_KEY);
     setStage('category');
     setCategory(null);
-    setInnerStep(0);
     setFormData({});
     setContact({ name: '', email: '', phone: '', city: '' });
     setAgree(false);
@@ -212,7 +183,6 @@ export default function Apply() {
   const handleStartForm = () => {
     if (category) {
       setStage('form');
-      setInnerStep(0);
     }
   };
 
@@ -230,22 +200,8 @@ export default function Apply() {
     );
   }
 
-  // Total steps for dots: form steps + contact + review
-  const totalSteps = STEP_COUNTS[category] + 2;
-  let currentStep;
-  if (stage === 'form') currentStep = innerStep;
-  else if (stage === 'contact') currentStep = STEP_COUNTS[category];
-  else if (stage === 'review') currentStep = STEP_COUNTS[category] + 1;
-
   const catData = CATEGORIES.find(c => c.id === category);
   const accent = catData ? accentColor(catData.accent) : C.teal;
-
-  const FormComponent = {
-    musician: MusicianSteps,
-    vendor: VendorSteps,
-    entertainer: EntertainerStep,
-    other: OtherStep,
-  }[category];
 
   return (
     <div style={{ minHeight: '100vh', background: C.paper, paddingTop: 80 }}>
@@ -284,21 +240,14 @@ export default function Apply() {
           </button>
         </div>
 
-        <StepDots total={totalSteps} current={currentStep} accent={accent} />
-
-        <div style={{ marginTop: 32, paddingBottom: 80 }}>
-          {stage === 'form' && FormComponent && (
-            <FormComponent
-              step={innerStep}
-              data={formData}
-              onChange={updateField}
-              errors={errors}
-            />
-          )}
-          {stage === 'contact' && (
-            <ContactStep
-              data={contact}
-              onChange={updateContact}
+        <div style={{ paddingBottom: 80 }}>
+          {stage === 'form' && (
+            <ApplicationForm
+              category={category}
+              formData={formData}
+              contact={contact}
+              onFieldChange={updateField}
+              onContactChange={updateContact}
               errors={errors}
             />
           )}
@@ -315,8 +264,8 @@ export default function Apply() {
             />
           )}
 
-          {/* Nav buttons (not on review -- review has its own submit) */}
-          {stage !== 'review' && (
+          {/* Nav buttons (form stage only; review has its own submit) */}
+          {stage === 'form' && (
             <div className="form-nav" style={{ display: 'flex', gap: 12, marginTop: 32 }}>
               <button
                 onClick={handleBack}
@@ -337,7 +286,7 @@ export default function Apply() {
                 Back
               </button>
               <button
-                onClick={handleNext}
+                onClick={handleReview}
                 style={{
                   ...mono,
                   fontSize: 11,
@@ -353,9 +302,34 @@ export default function Apply() {
                   flex: 1,
                 }}
               >
-                Continue
+                Review Application
               </button>
             </div>
+          )}
+
+          {/* Back button on review */}
+          {stage === 'review' && (
+            <button
+              onClick={handleBack}
+              style={{
+                ...mono,
+                display: 'block',
+                width: '100%',
+                marginTop: 12,
+                padding: '12px 28px',
+                borderRadius: 8,
+                border: `1.5px solid ${C.border}`,
+                background: 'transparent',
+                color: C.inkMuted,
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '.1em',
+                cursor: 'pointer',
+              }}
+            >
+              Edit Application
+            </button>
           )}
         </div>
       </div>

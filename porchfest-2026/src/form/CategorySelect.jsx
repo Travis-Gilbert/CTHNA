@@ -4,7 +4,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import { C, serif, sans, mono, tagStyle } from '../tokens';
 import { CATEGORIES, STATS, accentColor, accentBright, accentDim } from '../porchfest-data';
 
-function CatCard({ cat, selected, onSelect }) {
+function CatCard({ cat, selected, onSelect, onStart }) {
   const [hovered, setHovered] = useState(false);
   const isSelected = selected === cat.id;
   const color = accentColor(cat.accent);
@@ -13,7 +13,7 @@ function CatCard({ cat, selected, onSelect }) {
 
   return (
     <button
-      onClick={() => onSelect(cat.id)}
+      onClick={() => selected === cat.id ? onStart() : onSelect(cat.id)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -130,7 +130,7 @@ export default function CategorySelect({ selected, onSelect, onStart }) {
             gap: 12,
           }}>
             {CATEGORIES.map(cat => (
-              <CatCard key={cat.id} cat={cat} selected={selected} onSelect={onSelect} />
+              <CatCard key={cat.id} cat={cat} selected={selected} onSelect={onSelect} onStart={onStart} />
             ))}
           </div>
 
