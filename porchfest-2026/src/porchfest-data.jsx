@@ -7,7 +7,7 @@ export const META = {
 };
 
 export const STATS = [
-  { value: '~3,000', label: 'Attendees in 2025' },
+  { value: '+3,000', label: 'Attendees in 2025' },
   { value: '20+', label: 'Performing Acts' },
   { value: '45', label: 'Vendors last year' },
   { value: '7', label: 'Years running' },
@@ -148,10 +148,10 @@ export const HERO_COPY = {
   tagSuffix: 'Flint, Michigan',
   headline: "Flint's Best",
   headlineAccent: 'Fest',
-  sub: "Flint's free, walkable neighborhood music festival. Every July, performers take over front porches, street corners, and stages across six blocks of Carriage Town while thousands wander from act to act all afternoon.",
+  sub: "Flint's best festival returns. Performers take over front porches, street corners, and stages across six blocks of Carriage Town while thousands wander from act to act.",
   metaItems: [
     { value: 'July 17', label: 'Friday, 2026' },
-    { value: '~3,000', label: 'Attendees in 2025' },
+    { value: '+3,000', label: 'Attendees in 2025' },
     { value: 'Free', label: 'Always, for everyone' },
   ],
 };
