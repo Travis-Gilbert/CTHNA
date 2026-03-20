@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carriage Town Porchfest 2026 | Flint, MI</title>
+<meta name="description" content="Flint's neighborhood music and arts festival. Live music on real porches, street stages, food vendors, and more. Free entry. Friday July 17, 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400..900;1,400&family=Cabin:ital,wght@0,400..700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#F2EDE5;color:#2A2420;overflow-x:hidden;font-family:'Cabin',-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:inherit}button{font-family:inherit;cursor:pointer;border:none}
+
+:root{
+  /* Ground */
+  --paper:#F2EDE5;--surface:#FAF6F1;--cream:#FFF8F0;
+  --ink:#2A2420;--ink-m:#6A5E52;--ink-l:#9A8E82;
+  --dark:#1A1816;--dark-w:#2A2420;--border:#D4CCC4;
+  /* Primary: teal */
+  --teal:#2A7A7B;--teal-b:#35918F;--teal-dim:rgba(42,122,123,.1);
+  /* Secondary: burgundy (from poster) */
+  --burg:#7A2E3A;--burg-b:#963848;--burg-dim:rgba(122,46,58,.1);
+  /* Accent: warm gold (kept) */
+  --gold:#C49A4A;--gold-b:#D4AA52;--gold-dim:rgba(196,154,74,.1);
+  /* Type */
+  --ff-s:'Vollkorn',Georgia,serif;
+  --ff-n:'Cabin',-apple-system,sans-serif;
+  --ff-m:'Courier Prime',monospace;
+}
+
+/* ── Reveal ─────────────────────────────────── */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ── Nav ────────────────────────────────────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}
+.nav.scrolled{background:rgba(26,24,22,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-mk{width:34px;height:34px;border-radius:50%;background:var(--burg);display:flex;align-items:center;justify-content:center;font-family:var(--ff-s);font-weight:900;font-size:16px;color:#fff;line-height:1}
+.nav-t{font-family:var(--ff-m);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(240,235,228,.65)}
+.nav-r{display:flex;align-items:center;gap:24px}
+.nav-a{font-family:var(--ff-m);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,235,228,.4);text-decoration:none;transition:color .2s}
+.nav-a:hover{color:rgba(240,235,228,.8)}
+.cta-btn{font-family:var(--ff-m);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#fff;background:var(--teal);padding:9px 18px;border-radius:5px;text-decoration:none;transition:background .2s,transform .2s;display:inline-block}
+.cta-btn:hover{background:var(--teal-b);transform:translateY(-1px)}
+@media(max-width:640px){.nav-r .nav-a{display:none}}
+
+/* ── Hero ───────────────────────────────────── */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--dark)}
+.hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,24,22,.96) 0%,rgba(26,24,22,.65) 35%,rgba(26,24,22,.15) 60%,rgba(42,36,32,.05) 100%)}
+.hero-c{position:relative;z-index:2;padding:0 clamp(24px,5vw,80px) 64px;max-width:1100px}
+.hero-tag{font-family:var(--ff-m);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--teal-b);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hero-tag::before{content:'';display:block;width:28px;height:2px;background:var(--teal-b)}
+.hero-h1{font-family:var(--ff-s);font-size:clamp(44px,9vw,86px);font-weight:900;line-height:.95;color:#F0EBE4;margin-bottom:22px;max-width:11ch}
+.hero-h1 em{font-style:italic;color:var(--burg-b)}
+.hero-sub{font-family:var(--ff-n);font-size:clamp(16px,2.2vw,19px);line-height:1.7;color:rgba(240,235,228,.55);max-width:50ch;margin-bottom:32px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:20px 40px;margin-bottom:36px}
+.hero-mv{font-family:var(--ff-s);font-size:28px;font-weight:900;color:var(--burg-b);line-height:1}
+.hero-ml{font-family:var(--ff-m);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(240,235,228,.28);margin-top:4px}
+.hero-act{display:flex;flex-wrap:wrap;gap:12px}
+.bp{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border-radius:8px;background:var(--teal);font-family:var(--ff-m);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#fff;text-decoration:none;transition:background .2s,transform .2s}
+.bp:hover{background:var(--teal-b);transform:translateY(-2px)}
+.bs{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border-radius:8px;border:1.5px solid rgba(240,235,228,.2);background:transparent;font-family:var(--ff-m);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(240,235,228,.55);text-decoration:none;transition:border-color .2s,color .2s}
+.bs:hover{border-color:rgba(240,235,228,.5);color:rgba(240,235,228,.9)}
+.hero-scroll{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;animation:fl 2.5s ease-in-out infinite}
+.hero-scroll span{font-family:var(--ff-m);font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:rgba(240,235,228,.22)}
+@keyframes fl{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* ── Photo strip ────────────────────────────── */
+.pstrip{display:grid;grid-template-columns:2fr 1fr 1.5fr 1fr;gap:3px;background:var(--dark)}
+.pstrip img{width:100%;height:140px;object-fit:cover;transition:filter .4s}.pstrip img:hover{filter:brightness(1.1)}
+@media(max-width:640px){.pstrip{grid-template-columns:1fr 1fr}.pstrip img{height:100px}}
+
+/* ── Section utils ──────────────────────────── */
+.sec{padding:80px clamp(20px,5vw,80px)}
+.sec-paper{background:var(--paper)}
+.tag{font-family:var(--ff-m);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:12px}
+.sh{font-family:var(--ff-s);font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.1;margin-bottom:10px}
+.sh span{color:var(--teal)}
+.sp{font-family:var(--ff-n);font-size:15px;color:var(--ink-m);line-height:1.7;max-width:50ch}
+
+/* ── About ──────────────────────────────────── */
+.about-g{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-t p{font-family:var(--ff-n);font-size:16px;line-height:1.75;color:var(--ink-m);margin-bottom:16px;max-width:48ch}
+.pull{font-family:var(--ff-s);font-size:18px;font-weight:600;font-style:italic;color:var(--ink);line-height:1.6;padding-left:20px;border-left:3px solid var(--teal);margin:24px 0}
+.about-ph{position:relative;border-radius:12px;overflow:hidden}
+.about-ph img{width:100%;height:480px;object-fit:cover}
+.about-ph-ov{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;background:linear-gradient(transparent,rgba(26,24,22,.75))}
+.about-ph-ov span{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,235,228,.45)}
+@media(max-width:800px){.about-g{grid-template-columns:1fr;gap:32px}.about-ph img{height:320px}}
+
+/* ── Stats ──────────────────────────────────── */
+.stats{background:var(--dark-w);padding:48px clamp(20px,5vw,80px);border-top:1px solid rgba(240,235,228,.06);border-bottom:1px solid rgba(240,235,228,.06)}
+.stats-i{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.st{text-align:center}
+.st-n{font-family:var(--ff-s);font-size:clamp(32px,5vw,52px);font-weight:900;color:var(--burg-b);line-height:1}
+.st-l{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(240,235,228,.32);margin-top:8px}
+@media(max-width:640px){.stats-i{grid-template-columns:1fr 1fr}}
+
+/* ── Gallery ────────────────────────────────── */
+.gal-sec{background:var(--dark);padding:80px clamp(20px,5vw,80px)}
+.gal-hdr{max-width:1100px;margin:0 auto 40px}
+.gal-hdr h2{font-family:var(--ff-s);font-size:clamp(28px,4vw,42px);font-weight:800;color:#F0EBE4;line-height:1.1;margin-bottom:8px}
+.gal-hdr p{font-family:var(--ff-n);font-size:15px;color:rgba(240,235,228,.4);line-height:1.65}
+.gal-g{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.gi{border-radius:8px;overflow:hidden;position:relative}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.gi:hover img{transform:scale(1.04)}
+.g1{grid-column:1/8;min-height:340px}
+.g2{grid-column:8/13;min-height:340px}
+.g3{grid-column:1/5;min-height:260px}
+.g4{grid-column:5/9;min-height:260px}
+.g5{grid-column:9/13;min-height:260px}
+@media(max-width:640px){.gal-g{grid-template-columns:1fr 1fr}.g1{grid-column:1/-1;min-height:220px}.g2,.g3,.g4,.g5{grid-column:auto;min-height:180px}}
+
+/* ── How it works ───────────────────────────── */
+.how-i{max-width:1100px;margin:0 auto}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.how-s{padding:28px 24px;border-radius:12px;border:1px solid var(--border);background:var(--surface);transition:transform .3s,box-shadow .3s}
+.how-s:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(42,36,32,.08)}
+.how-n{font-family:var(--ff-s);font-size:48px;font-weight:900;color:var(--border);line-height:1;margin-bottom:12px}
+.how-s h3{font-family:var(--ff-s);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.how-s p{font-family:var(--ff-n);font-size:14px;color:var(--ink-m);line-height:1.65}
+@media(max-width:700px){.how-steps{grid-template-columns:1fr}}
+
+/* ── Apply CTA ──────────────────────────────── */
+.apply-sec{background:var(--dark-w);padding:80px clamp(20px,5vw,80px)}
+.apply-i{max-width:1100px;margin:0 auto}
+.apply-top{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:48px}
+.apply-top h2{font-family:var(--ff-s);font-size:clamp(28px,4vw,42px);font-weight:800;color:#F0EBE4;line-height:1.1;margin-bottom:12px}
+.apply-top p{font-family:var(--ff-n);font-size:16px;color:rgba(240,235,228,.5);line-height:1.7;max-width:42ch}
+.apply-top-ph{border-radius:12px;overflow:hidden}
+.apply-top-ph img{width:100%;height:320px;object-fit:cover}
+.apply-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.acard{padding:28px 22px;border-radius:12px;border:1.5px solid rgba(240,235,228,.08);background:rgba(240,235,228,.03);transition:border-color .3s,background .3s,transform .3s;text-decoration:none;display:block}
+.acard:hover{border-color:rgba(240,235,228,.18);background:rgba(240,235,228,.06);transform:translateY(-4px)}
+.acard-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.acard h3{font-family:var(--ff-s);font-size:17px;font-weight:700;color:#F0EBE4;margin-bottom:6px}
+.acard p{font-family:var(--ff-n);font-size:13px;color:rgba(240,235,228,.4);line-height:1.6}
+.acard-arr{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-top:16px;display:flex;align-items:center;gap:6px}
+@media(max-width:800px){.apply-top{grid-template-columns:1fr}.apply-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.apply-cards{grid-template-columns:1fr}}
+
+/* ── Footer ─────────────────────────────────── */
+.foot{background:var(--dark);padding:48px clamp(20px,5vw,80px);border-top:1px solid rgba(240,235,228,.05)}
+.foot-i{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px}
+.foot-b h3{font-family:var(--ff-s);font-size:18px;font-weight:700;color:#F0EBE4;margin-bottom:6px}
+.foot-b p{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,235,228,.2)}
+.foot-links{display:flex;gap:48px}
+.foot-col h4{font-family:var(--ff-m);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(240,235,228,.28);margin-bottom:12px}
+.foot-col a{display:block;font-family:var(--ff-n);font-size:14px;color:rgba(240,235,228,.45);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.foot-col a:hover{color:rgba(240,235,228,.8)}
+.foot-bot{max-width:1100px;margin:32px auto 0;padding-top:24px;border-top:1px solid rgba(240,235,228,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-bot span{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,235,228,.15)}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-mk">P</div>
+    <span class="nav-t">Porchfest 2026</span>
+  </a>
+  <div class="nav-r">
+    <a href="#about" class="nav-a">About</a>
+    <a href="#gallery" class="nav-a">Gallery</a>
+    <a href="#apply" class="cta-btn">Apply Now</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="photos/poster-hero.jpg"
+         alt="Porchfest 2026 poster: handcrafted stop-motion scene of musicians playing guitar and banjo on a front porch in Carriage Town"
+         loading="eager">
+    <div class="hero-ov"></div>
+  </div>
+  <div class="hero-c">
+    <div class="hero-tag rv">7th Annual &middot; Flint, Michigan</div>
+    <h1 class="hero-h1 rv d1">Music lives on the <em>porch.</em></h1>
+    <p class="hero-sub rv d2">Carriage Town Porchfest is Flint's free, walkable neighborhood music festival. Every July, performers take over front porches, street corners, and stages across a six-block stretch of Carriage Town while thousands of people wander from act to act all afternoon.</p>
+    <div class="hero-meta rv d3">
+      <div><div class="hero-mv">July 17</div><div class="hero-ml">Friday, 2026</div></div>
+      <div><div class="hero-mv">~3,000</div><div class="hero-ml">Attendees in 2025</div></div>
+      <div><div class="hero-mv">Free</div><div class="hero-ml">Always, for everyone</div></div>
+    </div>
+    <div class="hero-act rv d4">
+      <a href="#apply" class="bp">Apply to Perform &rarr;</a>
+      <a href="#about" class="bs">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M5 11l5 5 5-5" stroke="rgba(240,235,228,.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ═══ PHOTO STRIP ═══ -->
+<div class="pstrip">
+  <img src="photos/photo-red-porch-dj.jpg" alt="DJ and performers on a red front porch" loading="lazy">
+  <img src="photos/photo-stage-lights.jpg" alt="Performer under dramatic stage lights" loading="lazy">
+  <img src="photos/photo-crowd-dance.jpg" alt="Street performer engaging with a crowd" loading="lazy">
+  <img src="photos/photo-mc-street.jpg" alt="MC performing on the street corner" loading="lazy">
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="sec sec-paper" id="about">
+  <div class="about-g">
+    <div class="about-t">
+      <div class="rv">
+        <div class="tag">What is Porchfest?</div>
+        <h2 class="sh">Every porch <span>is a stage.</span></h2>
+      </div>
+      <p class="rv d1">Porchfest started when a few Carriage Town residents put bands on their front porches and invited the neighborhood. That was seven years ago. Now it fills six blocks, draws thousands of people, and has become one of Genesee County's most popular festivals.</p>
+      <div class="pull rv d2">You walk through a neighborhood and the music finds you. Porches, street corners, front yards. Turn any direction and something is happening.</div>
+      <p class="rv d3">The festival spreads across residential porches, sidewalk stages, and the main stage at Mason Street and First Avenue. Food vendors line the blocks. The whole thing runs from afternoon into the evening, and every part of it is free.</p>
+      <p class="rv d3">We prioritize Flint-based artists and acts connected to the community. All genres, all forms of performance. If you play music, serve food, or bring something that makes a block party better, there might be a porch with your name on it.</p>
+    </div>
+    <div class="about-ph rv">
+      <img src="photos/photo-porch-singer.jpg" alt="Singer performing on a brick porch with string lights, audience watching from lawn chairs">
+      <div class="about-ph-ov"><span>Porchfest 2025 &middot; Carriage Town</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats">
+  <div class="stats-i">
+    <div class="st rv"><div class="st-n">~3,000</div><div class="st-l">Attendees in 2025</div></div>
+    <div class="st rv d1"><div class="st-n">20+</div><div class="st-l">Performing Acts</div></div>
+    <div class="st rv d2"><div class="st-n">45</div><div class="st-l">Vendors last year</div></div>
+    <div class="st rv d3"><div class="st-n">7</div><div class="st-l">Years running</div></div>
+  </div>
+</div>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="gal-sec" id="gallery">
+  <div class="gal-hdr">
+    <div class="tag rv" style="color:var(--burg-b)">Porchfest 2025</div>
+    <h2 class="rv d1">See what it looks like.</h2>
+    <p class="rv d2">All from last year. All real.</p>
+  </div>
+  <div class="gal-g">
+    <div class="gi g1 rv">
+      <img src="photos/photo-wide-crowd.jpg" alt="Wide view of hundreds at Porchfest with historic houses and vendor tents" loading="lazy">
+    </div>
+    <div class="gi g2 rv d1">
+      <img src="photos/photo-red-porch-dj.jpg" alt="DJ and performers on a red front porch" loading="lazy">
+    </div>
+    <div class="gi g3 rv d2">
+      <img src="photos/photo-mc-street.jpg" alt="MC performing at the street corner" loading="lazy">
+    </div>
+    <div class="gi g4 rv d3">
+      <img src="photos/photo-stage-lights.jpg" alt="Performer under dramatic stage lights" loading="lazy">
+    </div>
+    <div class="gi g5 rv d4">
+      <img src="photos/photo-golden-hour.jpg" alt="Family walking through the neighborhood at golden hour" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="sec sec-paper">
+  <div class="how-i">
+    <div class="tag rv">How Porchfest Works</div>
+    <h2 class="sh rv d1">Show up. Walk around. <span>Find your sound.</span></h2>
+    <p class="sp rv d2">Free entry, open streets, live music everywhere. Just get here on July 17th and start walking.</p>
+    <div class="how-steps">
+      <div class="how-s rv d1">
+        <div class="how-n">01</div>
+        <h3>Show up</h3>
+        <p>Carriage Town neighborhood, Friday July 17th, starting in the afternoon. Street parking is free. The festival covers about six blocks centered on Mason Street and First Avenue.</p>
+      </div>
+      <div class="how-s rv d2">
+        <div class="how-n">02</div>
+        <h3>Walk the blocks</h3>
+        <p>Every porch and street corner has a different act. Hip-hop next to folk next to a DJ next to a comedian. Just keep walking and the lineup changes every 50 feet.</p>
+      </div>
+      <div class="how-s rv d3">
+        <div class="how-n">03</div>
+        <h3>Stay all day</h3>
+        <p>Grab food from any vendor on Mason Street. Find a lawn chair spot. Bring the family. The festival runs until the sun goes down and sometimes a little longer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APPLY CTA ═══ -->
+<section class="apply-sec" id="apply">
+  <div class="apply-i">
+    <div class="apply-top">
+      <div class="rv">
+        <div class="tag" style="color:var(--burg-b)">Applications Open</div>
+        <h2>Play a porch.<br>Feed the block.<br>Be part of it.</h2>
+        <p>We are looking for musicians, food vendors, entertainers, and anyone who wants to bring something to the neighborhood. Applications close in May. Selected acts hear back by mid-May 2026.</p>
+      </div>
+      <div class="apply-top-ph rv d2">
+        <img src="photos/photo-golden-hour.jpg" alt="Family walking through Carriage Town at sunset" loading="lazy">
+      </div>
+    </div>
+
+    <div class="apply-cards">
+      <!-- Musician -->
+      <a href="apply.html" class="acard rv">
+        <div class="acard-ico" style="background:var(--teal-dim)">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M10 20V8l14-3v12" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="20" r="3" stroke="var(--teal)" stroke-width="1.5"/><circle cx="21" cy="17" r="3" stroke="var(--teal)" stroke-width="1.5"/></svg>
+        </div>
+        <h3>Musician / Band</h3>
+        <p>Solo, duo, full band, DJ. Any genre. Show us what you sound like and we will find you a porch.</p>
+        <div class="acard-arr" style="color:var(--teal-b)">Apply &rarr;</div>
+      </a>
+      <!-- Vendor -->
+      <a href="apply.html?cat=vendor" class="acard rv d1">
+        <div class="acard-ico" style="background:var(--gold-dim)">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M4 10h20l-2 12H6L4 10z" stroke="var(--gold)" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 10V7a5 5 0 0110 0v3" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Food Vendor</h3>
+        <p>Food trucks, pop-ups, beverage stands. Tell us what you are serving and we will put you on the block.</p>
+        <div class="acard-arr" style="color:var(--gold-b)">Apply &rarr;</div>
+      </a>
+      <!-- Entertainer -->
+      <a href="apply.html?cat=entertainer" class="acard rv d2">
+        <div class="acard-ico" style="background:var(--burg-dim)">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="4" stroke="var(--burg)" stroke-width="1.5"/><path d="M6 24c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="var(--burg)" stroke-width="1.5" stroke-linecap="round"/><path d="M21 6l2-2M7 6L5 4M14 4V2" stroke="var(--burg)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Entertainer / Artist</h3>
+        <p>Comedy, dance, chalk art, street performance, spoken word. Anything that makes the block come alive.</p>
+        <div class="acard-arr" style="color:var(--burg)">Apply &rarr;</div>
+      </a>
+      <!-- Other -->
+      <a href="apply.html?cat=other" class="acard rv d3">
+        <div class="acard-ico" style="background:rgba(154,142,130,.1)">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="var(--ink-l)" stroke-width="1.5"/><circle cx="14" cy="14" r="2" fill="var(--ink-l)"/><circle cx="8" cy="14" r="2" fill="var(--ink-l)"/><circle cx="20" cy="14" r="2" fill="var(--ink-l)"/></svg>
+        </div>
+        <h3>Something Else</h3>
+        <p>Craft vendors, community orgs, sponsors, or anything that does not fit above. Tell us your idea.</p>
+        <div class="acard-arr" style="color:var(--ink-l)">Apply &rarr;</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPONSOR BAR ═══ -->
+<div style="background:var(--dark);padding:48px clamp(20px,5vw,80px);border-top:1px solid rgba(240,235,228,.04)">
+  <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px">
+    <div>
+      <p style="font-family:var(--ff-m);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--burg);margin-bottom:6px">Sponsors</p>
+      <p style="font-family:var(--ff-s);font-size:22px;font-weight:700;color:#F0EBE4;line-height:1.2">Put your brand on a porch.</p>
+      <p style="font-family:var(--ff-n);font-size:14px;color:rgba(240,235,228,.4);margin-top:6px;max-width:40ch">Logo placement, porch naming, stage naming, and space to activate at the event. Porchfest drew 3,000+ people last year.</p>
+    </div>
+    <a href="mailto:porchfest@cthna.org" class="cta-btn">Partner With Us</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="foot">
+  <div class="foot-i">
+    <div class="foot-b">
+      <h3>Carriage Town Porchfest</h3>
+      <p>Carriage Town Historic Neighborhood Association</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col">
+        <h4>Event</h4>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#apply">Apply</a>
+      </div>
+      <div class="foot-col">
+        <h4>CTHNA</h4>
+        <a href="https://www.cthna.org" target="_blank" rel="noopener">cthna.org</a>
+        <a href="mailto:porchfest@cthna.org">porchfest@cthna.org</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>&copy; 2026 Carriage Town Historic Neighborhood Association</span>
+    <span>Flint, Michigan</span>
+  </div>
+</footer>
+
+<!-- ═══ JS ═══ -->
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// Nav scroll
+const nav = document.getElementById('nav');
+let tk = false;
+window.addEventListener('scroll', () => {
+  if (!tk) {
+    requestAnimationFrame(() => { nav.classList.toggle('scrolled', window.scrollY > 80); tk = false; });
+    tk = true;
+  }
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
