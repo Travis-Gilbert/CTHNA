@@ -144,8 +144,10 @@ export const PHOTOS = {
 
 export const HERO_COPY = {
   tag: '7th Annual',
-  headline: 'Music lives on the',
-  headlineAccent: 'porch.',
+  tagAccent: 'Porchfest',
+  tagSuffix: 'Flint, Michigan',
+  headline: "Flint's Best",
+  headlineAccent: 'Fest',
   sub: "Flint's free, walkable neighborhood music festival. Every July, performers take over front porches, street corners, and stages across six blocks of Carriage Town while thousands wander from act to act all afternoon.",
   metaItems: [
     { value: 'July 17', label: 'Friday, 2026' },

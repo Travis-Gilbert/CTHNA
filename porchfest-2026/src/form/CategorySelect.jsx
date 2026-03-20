@@ -169,7 +169,6 @@ export default function CategorySelect({ selected, onSelect, onStart }) {
                 { q: 'What is Porchfest?', a: 'A free music and arts festival in Carriage Town, Flint. Performers play on front porches, street corners, and stages across six blocks.' },
                 { q: 'When and where?', a: 'Friday, July 17, 2026. Carriage Town, Flint, MI. Centered on Mason Street and First Avenue.' },
                 { q: 'Who performs?', a: 'Musicians, DJs, bands, spoken word artists, dancers, and comedians. All genres. Flint-based acts get priority.' },
-                { q: 'Does it cost anything?', a: 'Free for everyone. Free to apply. Selected performers and vendors pay nothing. The community funds the event.' },
               ].map(item => (
                 <div key={item.q} style={{ padding: '16px 18px', borderRadius: 10, border: `1px solid ${C.borderLight}`, background: C.surface }}>
                   <h4 style={{ ...serif, fontSize: 15, fontWeight: 700, color: C.ink, marginBottom: 6 }}>{item.q}</h4>

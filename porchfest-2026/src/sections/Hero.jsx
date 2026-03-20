@@ -97,21 +97,22 @@ export default function Hero() {
               background: C.tealBright,
               transition: 'width .6s cubic-bezier(.16,1,.3,1) .3s',
             }} />
-            {HERO_COPY.tag} &middot; Flint, Michigan
+            {HERO_COPY.tag} <span style={{ color: C.burgBright }}>{HERO_COPY.tagAccent}</span> &middot; {HERO_COPY.tagSuffix}
           </div>
         </ScrollReveal>
 
         <ScrollReveal delay={1} distance={30}>
           <h1 style={{
             ...serif,
-            fontSize: 'clamp(44px, 9vw, 86px)',
+            fontSize: 'clamp(48px, 10vw, 96px)',
             fontWeight: 900,
             lineHeight: 0.95,
             color: C.heroText,
             marginBottom: 22,
-            maxWidth: '11ch',
+            maxWidth: '18ch',
           }}>
-            {HERO_COPY.headline} <em style={{ fontStyle: 'italic', color: C.burgBright }}>{HERO_COPY.headlineAccent}</em>
+            <span style={{ color: C.burgBright, fontWeight: 900, display: 'block' }}>Porchfest</span>
+            <span style={{ fontWeight: 600 }}>Flint's Best Fest</span>
           </h1>
         </ScrollReveal>
 
