@@ -209,7 +209,7 @@ export default function SponsorTiers() {
     <section
       style={{
         padding: '64px clamp(20px,5vw,80px) 80px',
-        maxWidth: 1240,
+        maxWidth: 1320,
         margin: '0 auto',
       }}
     >
@@ -237,7 +237,7 @@ export default function SponsorTiers() {
             color: C.heroText,
           }}
         >
-          Five levels. Cumulative benefits.
+          Six ways to partner. Cumulative benefits.
         </h2>
         <p
           style={{
@@ -256,8 +256,8 @@ export default function SponsorTiers() {
         className="tiers-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: 14,
+          gridTemplateColumns: 'repeat(6, 1fr)',
+          gap: 12,
           alignItems: 'stretch',
         }}
       >
@@ -266,7 +266,7 @@ export default function SponsorTiers() {
         ))}
       </div>
       <style>{`
-        @media (max-width: 1080px) {
+        @media (max-width: 1200px) {
           .tiers-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 820px) {

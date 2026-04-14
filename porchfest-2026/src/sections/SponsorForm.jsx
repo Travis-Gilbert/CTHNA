@@ -503,8 +503,8 @@ export default function SponsorForm() {
               aria-label="Sponsorship level"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(5, 1fr)',
-                gap: 8,
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: 10,
               }}
             >
               {SPONSOR_TIERS.map((t) => (
@@ -596,9 +596,6 @@ export default function SponsorForm() {
         .sponsor-form-card textarea:focus,
         .sponsor-form-card input:focus {
           border-color: ${C.teal};
-        }
-        @media (max-width: 900px) {
-          .sponsor-tier-selector { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 600px) {
           .sponsor-form-row { grid-template-columns: 1fr !important; }
