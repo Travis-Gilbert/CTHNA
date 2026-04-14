@@ -6,6 +6,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isLanding = location.pathname === '/';
+  const isSponsors = location.pathname === '/sponsors';
 
   useEffect(() => {
     let ticking = false;
@@ -110,6 +111,13 @@ export default function Nav() {
             <a href="#gallery" onClick={(e) => handleAnchor(e, 'gallery')} style={linkStyle} className="nav-link-hide">Gallery</a>
           </>
         )}
+        <Link
+          to="/sponsors"
+          style={{ ...linkStyle, color: isSponsors ? C.tealBright : linkStyle.color }}
+          className="nav-link-hide"
+        >
+          Sponsors
+        </Link>
         <Link to="/apply" style={ctaStyle} className="nav-cta">Apply Now</Link>
       </div>
       <style>{`

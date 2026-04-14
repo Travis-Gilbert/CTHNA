@@ -192,3 +192,117 @@ export const accentDim = (accent) => {
   };
   return map[accent] || C.tealDim;
 };
+
+// ── Sponsor page data ──
+
+export const SPONSOR_TIERS = [
+  {
+    id: 'gold',
+    name: 'Gold',
+    price: '$500',
+    priceNum: 500,
+    badge: 'Gold',
+    badgeBg: C.goldDim,
+    badgeColor: C.gold,
+    featured: false,
+    items: [
+      'Logo on event shirts',
+      'Social media promotion',
+      'Logo on all printed materials',
+    ],
+    inherited: [],
+    ctaBg: C.goldDim,
+    ctaColor: C.gold,
+  },
+  {
+    id: 'porch',
+    name: 'Porch',
+    price: '$1,000',
+    priceNum: 1000,
+    badge: 'Most Popular',
+    badgeBg: C.tealDim,
+    badgeColor: C.tealBright,
+    featured: true,
+    items: [
+      'Your banner on a named porch',
+      'Featured with 2 performing acts',
+    ],
+    inherited: ['+ All Gold benefits'],
+    ctaBg: C.teal,
+    ctaColor: '#fff',
+  },
+  {
+    id: 'stage',
+    name: 'Stage',
+    price: '$2,000',
+    priceNum: 2000,
+    badge: 'Stage',
+    badgeBg: 'rgba(240,235,228,.05)',
+    badgeColor: 'rgba(240,235,228,.4)',
+    featured: false,
+    items: [
+      'Your brand on the main stage',
+      'MC mentions throughout the day',
+      'Activation space at the event',
+    ],
+    inherited: ['+ All Porch benefits'],
+    ctaBg: 'rgba(240,235,228,.06)',
+    ctaColor: 'rgba(240,235,228,.5)',
+  },
+  {
+    id: 'presenting',
+    name: 'Presenting',
+    price: '$5,000',
+    priceNum: 5000,
+    badge: 'Exclusive',
+    badgeBg: C.burgDim,
+    badgeColor: C.burgBright,
+    featured: false,
+    items: [
+      'Only one spot available',
+      '"Presented by [You]" on all materials',
+      'Premium activation space',
+    ],
+    inherited: ['+ All Stage benefits'],
+    ctaBg: C.burgDim,
+    ctaColor: C.burgBright,
+  },
+];
+
+export const SPONSOR_WHY = [
+  {
+    title: 'All-Day Exposure',
+    body: 'The festival runs from afternoon through sundown. People stay for hours and walk every block.',
+    iconColor: C.teal,
+    iconBg: C.tealDim,
+  },
+  {
+    title: 'Authentic Reach',
+    body: 'Families, young professionals, artists, city leaders. All local. They showed up on purpose.',
+    iconColor: C.burgBright,
+    iconBg: C.burgDim,
+  },
+  {
+    title: 'Stacked Visibility',
+    body: 'Every tier builds on the last. Logo on merch, banners on porches, your name on the main stage. All at once, all day.',
+    iconColor: C.gold,
+    iconBg: C.goldDim,
+  },
+];
+
+export const SPONSOR_DELIVERABLES = [
+  { title: 'Shirts & Merch', body: 'Your logo on official Porchfest shirts. Worn by staff, sold to attendees.' },
+  { title: 'Porch Banners', body: 'Banners hang on the porch where your acts perform.' },
+  { title: 'Stage Branding', body: 'Your name on the main stage at Mason Street and First Avenue.' },
+  { title: 'Social & Digital', body: 'Promotion on Porchfest social channels and the website before the event.' },
+  { title: 'Activation Space', body: 'Your own space at the festival for a booth or promotion.' },
+  { title: 'Print Materials', body: 'Logo on signage, flyers, and the printed festival program.' },
+];
+
+export const SPONSOR_CATEGORIES = [
+  { value: 'business', label: 'Business' },
+  { value: 'nonprofit', label: 'Nonprofit / Community Org' },
+  { value: 'individual', label: 'Individual' },
+  { value: 'government', label: 'Government / Agency' },
+  { value: 'other', label: 'Other' },
+];

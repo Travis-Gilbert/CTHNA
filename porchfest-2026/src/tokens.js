@@ -61,3 +61,9 @@ export const spStyle = {
   lineHeight: 1.7,
   maxWidth: '50ch',
 };
+
+// Card surface: warm gold-to-burgundy gradient over a dark base (for legibility over video)
+export const cardGradient = 'linear-gradient(135deg, rgba(196,154,74,.15), rgba(122,46,58,.15)), rgba(26,24,22,.82)';
+export const cardGradientHover = 'linear-gradient(135deg, rgba(196,154,74,.22), rgba(122,46,58,.22)), rgba(26,24,22,.88)';
+export const cardBorder = 'rgba(240,235,228,.12)';
+export const cardBorderHover = 'rgba(240,235,228,.22)';

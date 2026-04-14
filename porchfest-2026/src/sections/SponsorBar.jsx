@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import { C, serif, sans, mono } from '../tokens';
 
@@ -31,8 +32,8 @@ export default function SponsorBar() {
           </div>
         </ScrollReveal>
         <ScrollReveal delay={2}>
-          <a
-            href="mailto:porchfest@cthna.org"
+          <Link
+            to="/sponsors"
             style={{
               ...mono,
               fontSize: 10,
@@ -49,7 +50,7 @@ export default function SponsorBar() {
             }}
           >
             Partner With Us
-          </a>
+          </Link>
         </ScrollReveal>
       </div>
     </div>

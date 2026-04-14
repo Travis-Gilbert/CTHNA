@@ -19,6 +19,7 @@ export default function Footer() {
             <h4 style={{ ...mono, fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.14em', color: 'rgba(240,235,228,.28)', marginBottom: 12 }}>Event</h4>
             <a href="/#about" style={{ ...sans, display: 'block', fontSize: 14, color: muted, textDecoration: 'none', marginBottom: 8 }}>About</a>
             <a href="/#gallery" style={{ ...sans, display: 'block', fontSize: 14, color: muted, textDecoration: 'none', marginBottom: 8 }}>Gallery</a>
+            <Link to="/sponsors" style={{ ...sans, display: 'block', fontSize: 14, color: muted, textDecoration: 'none', marginBottom: 8 }}>Sponsors</Link>
             <Link to="/apply" style={{ ...sans, display: 'block', fontSize: 14, color: muted, textDecoration: 'none', marginBottom: 8 }}>Apply</Link>
           </div>
           <div>
