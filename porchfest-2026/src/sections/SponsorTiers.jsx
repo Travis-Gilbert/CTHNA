@@ -24,13 +24,15 @@ function TierCard({ tier, delay }) {
     window.dispatchEvent(new CustomEvent('select-sponsor-tier', { detail: tier.id }));
   };
 
-  const featuredBorder = hover ? C.tealBright : C.teal;
+  const featuredBorderColor = tier.featuredBorder || C.teal;
+  const featuredBorderHoverColor = tier.featuredBorderHover || C.tealBright;
+  const featuredBorderNow = hover ? featuredBorderHoverColor : featuredBorderColor;
   const normalBorder = hover ? cardBorderHover : cardBorder;
 
   const shadow = tier.featured
     ? hover
-      ? `0 0 0 1px ${C.tealBright}, 0 12px 40px rgba(42,122,123,.2)`
-      : '0 0 0 1px rgba(42,122,123,.3)'
+      ? tier.featuredShadowHover || `0 0 0 1px ${featuredBorderHoverColor}, 0 12px 40px rgba(42,122,123,.2)`
+      : tier.featuredShadow || '0 0 0 1px rgba(42,122,123,.3)'
     : hover
     ? '0 12px 40px rgba(0,0,0,.35)'
     : 'none';
@@ -44,7 +46,7 @@ function TierCard({ tier, delay }) {
           borderRadius: 12,
           overflow: 'hidden',
           background: hover ? cardGradientHover : cardGradient,
-          border: `1.5px solid ${tier.featured ? featuredBorder : normalBorder}`,
+          border: `1.5px solid ${tier.featured ? featuredBorderNow : normalBorder}`,
           boxShadow: shadow,
           transform: hover ? 'translateY(-4px)' : 'translateY(0)',
           transition: 'all .3s',
@@ -56,7 +58,7 @@ function TierCard({ tier, delay }) {
       >
         <div
           style={{
-            padding: '24px 22px 18px',
+            padding: '22px 20px 16px',
             borderBottom: '1px solid rgba(240,235,228,.06)',
           }}
         >
@@ -91,7 +93,7 @@ function TierCard({ tier, delay }) {
           <div
             style={{
               ...mono,
-              fontSize: 28,
+              fontSize: 24,
               fontWeight: 700,
               color: C.heroText,
               lineHeight: 1,
@@ -100,7 +102,7 @@ function TierCard({ tier, delay }) {
             {tier.price}
           </div>
         </div>
-        <div style={{ padding: '20px 22px 24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '18px 20px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div
             style={{
               ...mono,
@@ -207,7 +209,7 @@ export default function SponsorTiers() {
     <section
       style={{
         padding: '64px clamp(20px,5vw,80px) 80px',
-        maxWidth: 1100,
+        maxWidth: 1240,
         margin: '0 auto',
       }}
     >
@@ -235,7 +237,7 @@ export default function SponsorTiers() {
             color: C.heroText,
           }}
         >
-          Four levels. Cumulative benefits.
+          Five levels. Cumulative benefits.
         </h2>
         <p
           style={{
@@ -254,8 +256,8 @@ export default function SponsorTiers() {
         className="tiers-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 16,
+          gridTemplateColumns: 'repeat(5, 1fr)',
+          gap: 14,
           alignItems: 'stretch',
         }}
       >
@@ -264,10 +266,13 @@ export default function SponsorTiers() {
         ))}
       </div>
       <style>{`
-        @media (max-width: 900px) {
-          .tiers-grid { grid-template-columns: 1fr 1fr !important; }
+        @media (max-width: 1080px) {
+          .tiers-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
-        @media (max-width: 600px) {
+        @media (max-width: 820px) {
+          .tiers-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 560px) {
           .tiers-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>

@@ -503,8 +503,8 @@ export default function SponsorForm() {
               aria-label="Sponsorship level"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: 10,
+                gridTemplateColumns: 'repeat(5, 1fr)',
+                gap: 8,
               }}
             >
               {SPONSOR_TIERS.map((t) => (
@@ -598,11 +598,14 @@ export default function SponsorForm() {
           border-color: ${C.teal};
         }
         @media (max-width: 900px) {
-          .sponsor-tier-selector { grid-template-columns: 1fr 1fr !important; }
+          .sponsor-tier-selector { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 600px) {
           .sponsor-form-row { grid-template-columns: 1fr !important; }
           .sponsor-form-card { padding: 28px 20px !important; }
+          .sponsor-tier-selector { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 420px) {
           .sponsor-tier-selector { grid-template-columns: 1fr !important; }
         }
       `}</style>
