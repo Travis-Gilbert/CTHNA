@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Apply from './pages/Apply';
 import Sponsors from './pages/Sponsors';
+import Board from './pages/Board';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/apply" element={<Apply />} />
           <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/board" element={<Board />} />
         </Routes>
       </main>
       <Footer />
