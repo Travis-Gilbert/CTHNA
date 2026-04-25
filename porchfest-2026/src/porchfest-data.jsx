@@ -349,3 +349,30 @@ export const SPONSOR_CATEGORIES = [
   { value: 'government', label: 'Government / Agency' },
   { value: 'other', label: 'Other' },
 ];
+
+// Vendor application fees, charged at submission via Stripe Checkout.
+// `priceCents` of null means pay-what-you-can; user enters an amount.
+export const VENDOR_TIERS = [
+  {
+    id: 'food-truck',
+    label: 'Food Truck',
+    description: 'Full-size truck or trailer',
+    priceCents: 7500,
+    priceDisplay: '$75',
+  },
+  {
+    id: 'pop-up',
+    label: 'Pop-up / Tent',
+    description: '10x10 tent, table, or pop-up',
+    priceCents: 2500,
+    priceDisplay: '$25',
+  },
+  {
+    id: 'pay-what-you-can',
+    label: 'Pay What You Can',
+    description: 'Need a different number? Pay what works for you.',
+    priceCents: null,
+    priceDisplay: 'Your choice',
+    minimumCents: 100,
+  },
+];

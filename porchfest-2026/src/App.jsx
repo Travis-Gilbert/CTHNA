@@ -5,6 +5,7 @@ import Landing from './pages/Landing';
 import Apply from './pages/Apply';
 import Sponsors from './pages/Sponsors';
 import Board from './pages/Board';
+import PaymentThanks from './pages/PaymentThanks';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/apply" element={<Apply />} />
+          <Route path="/apply/thanks" element={<PaymentThanks />} />
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/board" element={<Board />} />
         </Routes>
