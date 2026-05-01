@@ -5,11 +5,14 @@ import Footer from '../components/Footer';
 
 export default function SuccessScreen({ name }) {
   const firstName = name ? name.split(' ')[0] : 'you';
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(() => (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ));
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) { setShow(true); return; }
+    if (mq.matches) return;
     const t = setTimeout(() => setShow(true), 80);
     return () => clearTimeout(t);
   }, []);
@@ -22,7 +25,7 @@ export default function SuccessScreen({ name }) {
   });
 
   return (
-    <div style={{ minHeight: '100vh', background: C.dark, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '80px clamp(20px,5vw,60px)' }}>
+    <div style={{ minHeight: '100vh', background: 'rgba(26,24,22,.74)', backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '80px clamp(20px,5vw,60px)' }}>
       {/* Checkmark */}
       <div style={{
         width: 64,

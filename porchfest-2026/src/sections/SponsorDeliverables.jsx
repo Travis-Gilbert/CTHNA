@@ -103,7 +103,7 @@ export default function SponsorDeliverables() {
                 color: C.heroText,
               }}
             >
-              Every deliverable is physical and visible.
+              Your sponsorship shows up in the real world.
             </h2>
             <p
               style={{
@@ -114,7 +114,7 @@ export default function SponsorDeliverables() {
                 maxWidth: '40ch',
               }}
             >
-              No buried logo on a PDF. Your brand shows up where the crowd is.
+              No buried logo in a PDF. Your brand appears where the crowd can see it.
             </p>
           </div>
         </ScrollReveal>

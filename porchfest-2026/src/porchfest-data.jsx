@@ -102,8 +102,8 @@ export const HOW_STEPS = [
   },
   {
     num: '02',
-    title: 'Walk the blocks',
-    body: 'Every porch and corner has a different act: hip-hop beside folk beside a DJ beside a comedian. Walk fifty feet and the lineup changes.',
+    title: 'Explore the neighborhood',
+    body: 'Neighborhood-wide entertainment fills the blocks: music, DJs, food, comedy, and pop-up performances throughout Carriage Town.',
   },
   {
     num: '03',
@@ -115,10 +115,9 @@ export const HOW_STEPS = [
 export const ABOUT_COPY = {
   headline: 'Every porch',
   headlineAccent: 'is a stage.',
-  pullQuote: 'Walk through the neighborhood and the music finds you. Porches, street corners, front yards. Turn any direction and something is happening.',
   paragraphs: [
     'Seven years ago, a few Carriage Town residents put bands on their front porches and invited the neighborhood. Now Porchfest fills six blocks, draws thousands, and ranks among Genesee County\'s most popular festivals.',
-    'Performers play on residential porches, sidewalk stages, and the main stage at Mason Street and First Avenue. Food vendors line the blocks. The whole thing runs from afternoon into evening, and every part of it is free.',
+    'Performers play on front porches, sidewalk stages, and the main stage at Mason Street and First Avenue. Food vendors line the blocks. The whole thing runs from afternoon into evening, and every part of it is free.',
     'We prioritize Flint-based artists and acts rooted in the community. All genres, all forms of performance. If you play music, serve food, or bring something that makes a block party better, a porch may have your name on it.',
   ],
 };
@@ -148,7 +147,7 @@ export const HERO_COPY = {
   tagSuffix: 'Flint, Michigan',
   headline: "Flint's Best",
   headlineAccent: 'Fest',
-  sub: "Flint's best festival returns. Performers take over front porches, street corners, and stages across six blocks of Carriage Town while thousands wander from act to act.",
+  sub: "Flint's best festival returns. Performers take over front porches, street corners, and stages across six blocks of Carriage Town while thousands take in act after act.",
   metaItems: [
     { value: 'July 17', label: 'Friday, 2026' },
     { value: '+3,000', label: 'Attendees in 2025' },
@@ -314,20 +313,20 @@ export const SPONSOR_TIERS = [
 
 export const SPONSOR_WHY = [
   {
-    title: 'All-Day Exposure',
-    body: 'The festival runs from afternoon through sundown. People stay for hours and walk every block.',
+    title: 'Event-Long Exposure',
+    body: 'The festival runs from afternoon through sundown. People stay for hours and visit every block.',
     iconColor: C.teal,
     iconBg: C.tealDim,
   },
   {
     title: 'Authentic Reach',
-    body: 'Families, young professionals, artists, city leaders. All local. They showed up on purpose.',
+    body: 'Families, young professionals, artists, and city leaders all show up for something local.',
     iconColor: C.burgBright,
     iconBg: C.burgDim,
   },
   {
     title: 'Stacked Visibility',
-    body: 'Every tier builds on the last. Logo on merch, banners on porches, your name on the main stage. All at once, all day.',
+    body: 'Every tier builds on the last: logo on merch, banners on porches, and your name on the main stage.',
     iconColor: C.gold,
     iconBg: C.goldDim,
   },

@@ -5,7 +5,9 @@ import { C, serif, sans, mono } from '../tokens';
 export default function SponsorBar() {
   return (
     <div style={{
-      background: C.dark,
+      background: 'rgba(26,24,22,.74)',
+      backdropFilter: 'blur(3px)',
+      WebkitBackdropFilter: 'blur(3px)',
       padding: '48px clamp(20px,5vw,80px)',
       borderTop: '1px solid rgba(240,235,228,.04)',
     }}>

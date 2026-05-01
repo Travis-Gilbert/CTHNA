@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ResponsiveImg from '../components/ResponsiveImg';
 import { C, serif, sans, mono, tagStyle } from '../tokens';
-import { CATEGORIES, PHOTOS, accentColor, accentBright, accentDim } from '../porchfest-data';
+import { CATEGORIES, PHOTOS, accentBright, accentDim } from '../porchfest-data';
 
 function ApplyCard({ cat, delay }) {
   const [hovered, setHovered] = useState(false);
-  const color = accentColor(cat.accent);
   const bright = accentBright(cat.accent);
   const dim = accentDim(cat.accent);
   const Icon = cat.icon;
@@ -67,7 +66,7 @@ function ApplyCard({ cat, delay }) {
 
 export default function ApplyCTA() {
   return (
-    <section id="apply" style={{ background: C.darkWarm, padding: '80px clamp(20px,5vw,80px)' }}>
+    <section id="apply" style={{ background: 'rgba(42,36,32,.74)', backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)', padding: '80px clamp(20px,5vw,80px)' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         {/* Top 2-col */}
         <div className="apply-top" style={{

@@ -36,7 +36,9 @@ export default function Board() {
 
   return (
     <div style={{
-      background: C.dark,
+      background: 'rgba(26,24,22,.78)',
+      backdropFilter: 'blur(3px)',
+      WebkitBackdropFilter: 'blur(3px)',
       minHeight: '100vh',
       padding: 'calc(80px + env(safe-area-inset-top)) clamp(20px,5vw,80px) 80px',
     }}>

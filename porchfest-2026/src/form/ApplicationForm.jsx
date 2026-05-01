@@ -1,4 +1,4 @@
-import { C, serif, sans, mono } from '../tokens';
+import { C, serif, sans } from '../tokens';
 import { SETUP_NEEDS, FOOD_TYPES, VENDOR_NEEDS, ENT_TYPES } from '../porchfest-data';
 import Field from './field/Field';
 import TInput from './field/TInput';
@@ -108,7 +108,7 @@ export default function ApplicationForm({ category, formData, contact, onFieldCh
           <h2 style={sectionHeading}>Logistics</h2>
           <p style={sectionSub}>Help us plan your set.</p>
 
-          <Field label="Can you do at least a thirty minute set? *" error={errors.canDoThirty}>
+          <Field label="Can you do at least a 30-minute set? *" error={errors.canDoThirty}>
             <div style={{ display: 'flex', gap: 8 }}>
               <RadioCard name="canDoThirty" value="yes" checked={formData.canDoThirty === 'yes'} onChange={v => onFieldChange('canDoThirty', v)} label="Yes" />
               <RadioCard name="canDoThirty" value="no" checked={formData.canDoThirty === 'no'} onChange={v => onFieldChange('canDoThirty', v)} label="No" />

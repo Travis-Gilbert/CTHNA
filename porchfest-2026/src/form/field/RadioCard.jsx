@@ -1,4 +1,4 @@
-import { C, sans, mono } from '../../tokens';
+import { C, sans } from '../../tokens';
 
 export default function RadioCard({ name, value, checked, onChange, label, description }) {
   const id = `${name}-${value}`;

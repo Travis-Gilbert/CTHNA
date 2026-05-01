@@ -5,7 +5,7 @@ import { PHOTOS } from '../porchfest-data';
 
 export default function Gallery() {
   return (
-    <section id="gallery" style={{ background: C.dark, padding: '80px clamp(20px,5vw,80px)' }}>
+    <section id="gallery" style={{ background: 'rgba(26,24,22,.74)', backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)', padding: '80px clamp(20px,5vw,80px)' }}>
       {/* Header */}
       <div style={{ maxWidth: 1100, margin: '0 auto 40px' }}>
         <ScrollReveal>

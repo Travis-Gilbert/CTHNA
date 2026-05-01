@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import VideoBackground from '../components/VideoBackground';
 import SponsorHero from '../sections/SponsorHero';
 import WhySponsor from '../sections/WhySponsor';
 import SponsorTiers from '../sections/SponsorTiers';
@@ -109,18 +108,15 @@ export default function Sponsors() {
   }, []);
 
   return (
-    <>
-      <VideoBackground />
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <SponsorHero />
-        <Divider />
-        <WhySponsor />
-        <Divider />
-        <SponsorTiers />
-        <SponsorDeliverables />
-        <SponsorForm />
-        <BottomCTA />
-      </div>
-    </>
+    <div style={{ position: 'relative', zIndex: 1 }}>
+      <SponsorHero />
+      <Divider />
+      <WhySponsor />
+      <Divider />
+      <SponsorTiers />
+      <SponsorDeliverables />
+      <SponsorForm />
+      <BottomCTA />
+    </div>
   );
 }

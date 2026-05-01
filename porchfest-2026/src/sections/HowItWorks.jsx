@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
-import { C, serif, sans, mono, tagStyle, shStyle, spStyle } from '../tokens';
+import { C, serif, sans, tagStyle, shStyle, spStyle } from '../tokens';
 import { HOW_STEPS } from '../porchfest-data';
 
 const CARD_ACCENTS = [
@@ -41,19 +41,19 @@ function HowCard({ step, delay, accent }) {
 
 export default function HowItWorks() {
   return (
-    <section style={{ padding: '80px clamp(20px,5vw,80px)', background: C.paper }}>
+    <section style={{ padding: '80px clamp(20px,5vw,80px)', background: 'rgba(242,237,229,.70)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <ScrollReveal>
           <div style={tagStyle()}>How Porchfest Works</div>
         </ScrollReveal>
         <ScrollReveal delay={1}>
           <h2 style={shStyle}>
-            Show up. Walk around. <span style={{ color: C.teal }}>Find your sound.</span>
+            Show up. Tune in. <span style={{ color: C.teal }}>Find your sound.</span>
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={2}>
           <p style={spStyle}>
-            Free entry. Open streets. Live music everywhere. Get here July 17th and start walking.
+            Free entry. Open streets. Live music everywhere. Come July 17th and follow the sound.
           </p>
         </ScrollReveal>
 

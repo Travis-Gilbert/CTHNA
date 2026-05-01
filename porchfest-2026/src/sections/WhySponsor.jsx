@@ -34,8 +34,9 @@ const ICONS = [
   ),
 ];
 
-function WhyCard({ item, Icon, delay }) {
+function WhyCard({ item, renderIcon, delay }) {
   const [hover, setHover] = useState(false);
+  const icon = renderIcon({ stroke: item.iconColor });
   return (
     <ScrollReveal delay={delay}>
       <div
@@ -65,7 +66,7 @@ function WhyCard({ item, Icon, delay }) {
             background: item.iconBg,
           }}
         >
-          <Icon stroke={item.iconColor} />
+          {icon}
         </div>
         <h3
           style={{
@@ -139,7 +140,7 @@ export default function WhySponsor() {
             marginBottom: 40,
           }}
         >
-          Porchfest is grassroots, free, and built by residents. It feels like a neighborhood, not a production. Your brand rides that goodwill.
+          Porchfest is grassroots, free, and built by residents. It feels like a neighborhood, not a production. Your brand becomes part of that local energy.
         </p>
       </ScrollReveal>
       <div
@@ -151,7 +152,7 @@ export default function WhySponsor() {
         }}
       >
         {SPONSOR_WHY.map((item, i) => (
-          <WhyCard key={item.title} item={item} Icon={ICONS[i]} delay={i + 1} />
+          <WhyCard key={item.title} item={item} renderIcon={ICONS[i]} delay={i + 1} />
         ))}
       </div>
       <style>{`

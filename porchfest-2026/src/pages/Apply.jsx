@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { C, serif, sans, mono } from '../tokens';
+import { C, mono } from '../tokens';
 import { CATEGORIES, accentColor, VENDOR_TIERS } from '../porchfest-data';
 import CategorySelect from '../form/CategorySelect';
 import ApplicationForm from '../form/ApplicationForm';
@@ -15,16 +15,22 @@ function getInitialState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) return JSON.parse(saved);
-  } catch {}
+  } catch {
+    // localStorage may be unavailable in private mode.
+  }
   return null;
 }
 
 export default function Apply() {
   const [searchParams] = useSearchParams();
   const saved = getInitialState();
+  const queryCategory = searchParams.get('cat');
+  const initialCategory =
+    saved?.category ||
+    (queryCategory && CATEGORIES.some(c => c.id === queryCategory) ? queryCategory : null);
 
-  const [stage, setStage] = useState(saved?.stage || 'category');
-  const [category, setCategory] = useState(saved?.category || null);
+  const [stage, setStage] = useState(saved?.stage || (initialCategory ? 'form' : 'category'));
+  const [category, setCategory] = useState(initialCategory);
   const [formData, setFormData] = useState(saved?.formData || {});
   const [contact, setContact] = useState(saved?.contact || { name: '', email: '', phone: '', city: '' });
   const [agree, setAgree] = useState(false);
@@ -33,17 +39,6 @@ export default function Apply() {
   const [vendorTier, setVendorTier] = useState(saved?.vendorTier || '');
   const [customAmount, setCustomAmount] = useState(saved?.customAmount || '');
 
-  // URL param pre-selection
-  useEffect(() => {
-    if (!saved) {
-      const cat = searchParams.get('cat');
-      if (cat && CATEGORIES.some(c => c.id === cat)) {
-        setCategory(cat);
-        setStage('form');
-      }
-    }
-  }, []);
-
   // Persist to localStorage
   useEffect(() => {
     if (stage === 'done') return;
@@ -51,7 +46,9 @@ export default function Apply() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         stage, category, formData, contact, vendorTier, customAmount,
       }));
-    } catch {}
+    } catch {
+      // localStorage may be unavailable in private mode.
+    }
   }, [stage, category, formData, contact, vendorTier, customAmount]);
 
   // Scroll to top on stage change
@@ -300,7 +297,7 @@ export default function Apply() {
   const accent = catData ? accentColor(catData.accent) : C.teal;
 
   return (
-    <div style={{ minHeight: '100vh', background: C.paper, paddingTop: 80 }}>
+    <div style={{ minHeight: '100vh', background: 'rgba(242,237,229,.70)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)', paddingTop: 80 }}>
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 clamp(20px,5vw,40px)' }}>
         {/* Category badge + start over */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
@@ -439,7 +436,7 @@ export default function Apply() {
           .form-nav{
             position:sticky;
             bottom:0;
-            background:${C.paper};
+            background:rgba(242,237,229,.94);
             padding:16px 20px;
             border-top:1px solid ${C.border};
             margin:0 -clamp(20px,5vw,40px);

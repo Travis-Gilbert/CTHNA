@@ -20,7 +20,7 @@ export default function VideoBackground() {
         try {
           video.pause();
           video.removeAttribute('autoplay');
-        } catch (e) {
+        } catch {
           // Ignore; paused state may not be reachable during unload
         }
       }
@@ -40,6 +40,7 @@ export default function VideoBackground() {
         zIndex: 0,
         overflow: 'hidden',
         background: '#1A1816',
+        pointerEvents: 'none',
       }}
     >
       <video

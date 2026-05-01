@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { readdir, mkdir } from 'fs/promises';
+import { readdir } from 'fs/promises';
 import { join, parse } from 'path';
 
 const INPUT_DIR = 'public/photos';

@@ -1,11 +1,11 @@
 import ScrollReveal from '../components/ScrollReveal';
 import ResponsiveImg from '../components/ResponsiveImg';
-import { C, serif, sans, mono, tagStyle, shStyle } from '../tokens';
+import { C, sans, mono, tagStyle, shStyle } from '../tokens';
 import { ABOUT_COPY, PHOTOS } from '../porchfest-data';
 
 export default function About() {
   return (
-    <section id="about" style={{ padding: '80px clamp(20px,5vw,80px)', background: C.paper }}>
+    <section id="about" style={{ padding: '80px clamp(20px,5vw,80px)', background: 'rgba(242,237,229,.70)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)' }}>
       <div className="about-grid" style={{
         maxWidth: 1100,
         margin: '0 auto',
@@ -30,22 +30,6 @@ export default function About() {
           </ScrollReveal>
 
           <ScrollReveal delay={2}>
-            <div style={{
-              ...serif,
-              fontSize: 18,
-              fontWeight: 600,
-              fontStyle: 'italic',
-              color: C.ink,
-              lineHeight: 1.6,
-              paddingLeft: 20,
-              borderLeft: `3px solid ${C.teal}`,
-              margin: '24px 0',
-            }}>
-              {ABOUT_COPY.pullQuote}
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={3}>
             <p style={{ ...sans, fontSize: 16, lineHeight: 1.75, color: C.inkMuted, marginBottom: 16, maxWidth: '48ch' }}>
               {ABOUT_COPY.paragraphs[1]}
             </p>

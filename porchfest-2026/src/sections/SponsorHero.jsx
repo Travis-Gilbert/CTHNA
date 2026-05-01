@@ -3,7 +3,7 @@ import { C, serif, sans, mono, cardGradient, cardBorder } from '../tokens';
 
 const STATS = [
   { value: '3,000+', label: 'Attendees 2025' },
-  { value: '30+', label: 'Performing Acts' },
+  { value: '20+', label: 'Performing Acts' },
   { value: '6', label: 'City Blocks' },
   { value: 'Free', label: 'Always' },
 ];
@@ -66,7 +66,7 @@ export default function SponsorHero() {
                 marginBottom: 28,
               }}
             >
-              Sponsor Flint's best fest.
+              Sponsors Flints Best Fest.
             </p>
             <div
               className="sponsor-hero-stats"
@@ -117,17 +117,25 @@ export default function SponsorHero() {
               justifyContent: 'center',
             }}
           >
-            <span
-              style={{
-                ...mono,
-                fontSize: 11,
-                color: 'rgba(240,235,228,.2)',
-                textTransform: 'uppercase',
-                letterSpacing: '.1em',
-              }}
-            >
-              [Sponsor banner on porch photo]
-            </span>
+            <picture style={{ width: '100%', height: '100%', display: 'block' }}>
+              <source
+                type="image/webp"
+                srcSet="/photos/photo-red-porch-dj-sm.webp 640w, /photos/photo-red-porch-dj-md.webp 960w, /photos/photo-red-porch-dj-lg.webp 1400w"
+                sizes="(max-width: 900px) 480px, 440px"
+              />
+              <img
+                src="/photos/photo-red-porch-dj.jpg"
+                srcSet="/photos/photo-red-porch-dj-sm.jpg 640w, /photos/photo-red-porch-dj-md.jpg 960w, /photos/photo-red-porch-dj-lg.jpg 1400w"
+                sizes="(max-width: 900px) 480px, 440px"
+                alt="Performers and a DJ on a red Carriage Town porch"
+                loading="eager"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            </picture>
           </div>
         </ScrollReveal>
       </div>

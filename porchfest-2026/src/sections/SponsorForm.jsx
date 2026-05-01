@@ -11,8 +11,7 @@ import {
   cardBorder,
 } from '../tokens';
 
-// Travis will swap this ID after creating the Formspree endpoint.
-const FORMSPREE_SPONSOR = 'https://formspree.io/f/REPLACE_WITH_ACTUAL_ID';
+const FORMSPREE_SPONSOR = import.meta.env.VITE_FORMSPREE_SPONSOR_URL || '';
 
 const labelStyle = {
   ...mono,
@@ -297,6 +296,10 @@ export default function SponsorForm() {
 
     setSubmitting(true);
     try {
+      if (!FORMSPREE_SPONSOR) {
+        throw new Error('Sponsor Formspree endpoint is not configured');
+      }
+
       const payload = {
         firstName,
         lastName,
@@ -320,7 +323,7 @@ export default function SponsorForm() {
 
       if (!res.ok) throw new Error(`Formspree returned ${res.status}`);
       setSubmitted(true);
-    } catch (err) {
+    } catch {
       setNetworkError(true);
     } finally {
       setSubmitting(false);
@@ -375,7 +378,7 @@ export default function SponsorForm() {
             textAlign: 'center',
           }}
         >
-          Fill this out. We will reply within 48 hours. No commitment until we talk.
+          Send us your details and we will reply within 48 hours. No commitment until we talk.
         </p>
       </ScrollReveal>
 

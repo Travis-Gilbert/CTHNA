@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import { C, serif, sans, mono, tagStyle } from '../tokens';
-import { CATEGORIES, STATS, accentColor, accentBright, accentDim } from '../porchfest-data';
+import { CATEGORIES, STATS, accentColor, accentDim } from '../porchfest-data';
 
 function CatCard({ cat, selected, onSelect, onStart }) {
   const [hovered, setHovered] = useState(false);
@@ -70,7 +70,9 @@ export default function CategorySelect({ selected, onSelect, onStart }) {
     <div style={{ minHeight: '100vh' }}>
       {/* Mini hero */}
       <div style={{
-        background: C.dark,
+        background: 'rgba(26,24,22,.74)',
+        backdropFilter: 'blur(3px)',
+        WebkitBackdropFilter: 'blur(3px)',
         padding: '120px clamp(20px,5vw,80px) 60px',
       }}>
         <div style={{ maxWidth: 640, margin: '0 auto' }}>
@@ -119,7 +121,7 @@ export default function CategorySelect({ selected, onSelect, onStart }) {
       </div>
 
       {/* Category cards */}
-      <div style={{ background: C.paper, padding: '48px clamp(20px,5vw,80px) 80px' }}>
+      <div style={{ background: 'rgba(242,237,229,.70)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)', padding: '48px clamp(20px,5vw,80px) 80px' }}>
         <div style={{ maxWidth: 640, margin: '0 auto' }}>
           <p style={{ ...mono, fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.1em', color: C.inkLight, marginBottom: 16 }}>
             What are you applying as?

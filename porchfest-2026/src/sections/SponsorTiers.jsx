@@ -237,7 +237,7 @@ export default function SponsorTiers() {
             color: C.heroText,
           }}
         >
-          Six ways to partner. Cumulative benefits.
+          Six ways to partner. Benefits build at every tier.
         </h2>
         <p
           style={{
@@ -249,7 +249,7 @@ export default function SponsorTiers() {
             marginBottom: 40,
           }}
         >
-          Each tier includes the tiers below. Pick the level that fits. Your brand is covered from shirts to stages.
+          Each tier includes the benefits below it, so you can choose the level that fits and still show up across the festival.
         </p>
       </ScrollReveal>
       <div

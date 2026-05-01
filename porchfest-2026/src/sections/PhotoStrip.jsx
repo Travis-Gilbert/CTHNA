@@ -16,7 +16,7 @@ export default function PhotoStrip() {
       display: 'grid',
       gridTemplateColumns: '2fr 1fr 1.5fr 1fr',
       gap: 3,
-      background: C.dark,
+      background: 'rgba(26,24,22,.74)',
     }}>
       {PHOTOS.strip.map((src, i) => (
         <ScrollReveal key={src} delay={i} direction="scale" distance={28}>

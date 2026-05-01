@@ -8,7 +8,7 @@ export default function Footer() {
   const divider = 'rgba(240,235,228,.05)';
 
   return (
-    <footer style={{ background: C.dark, padding: '48px clamp(20px,5vw,80px)', borderTop: `1px solid ${divider}` }}>
+    <footer style={{ background: 'rgba(26,24,22,.74)', backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)', padding: '48px clamp(20px,5vw,80px)', borderTop: `1px solid ${divider}` }}>
       <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 32 }}>
         <div>
           <h3 style={{ ...serif, fontSize: 18, fontWeight: 700, color: C.heroText, marginBottom: 6 }}>Carriage Town Porchfest</h3>

@@ -5,7 +5,9 @@ import { STATS } from '../porchfest-data';
 export default function StatsBar() {
   return (
     <div style={{
-      background: C.darkWarm,
+      background: 'rgba(42,36,32,.74)',
+      backdropFilter: 'blur(3px)',
+      WebkitBackdropFilter: 'blur(3px)',
       padding: '48px clamp(20px,5vw,80px)',
       borderTop: '1px solid rgba(240,235,228,.06)',
       borderBottom: '1px solid rgba(240,235,228,.06)',

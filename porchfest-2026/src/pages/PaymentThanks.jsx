@@ -22,7 +22,7 @@ export default function PaymentThanks() {
 
   if (canceled) {
     return (
-      <div style={{ minHeight: '100vh', background: C.paper, paddingTop: 100, paddingBottom: 80 }}>
+      <div style={{ minHeight: '100vh', background: 'rgba(242,237,229,.70)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)', paddingTop: 100, paddingBottom: 80 }}>
         <div
           style={{
             maxWidth: 560,
@@ -90,7 +90,7 @@ export default function PaymentThanks() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: C.paper, paddingTop: 100, paddingBottom: 80 }}>
+    <div style={{ minHeight: '100vh', background: 'rgba(242,237,229,.70)', backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)', paddingTop: 100, paddingBottom: 80 }}>
       <div
         style={{
           maxWidth: 560,
@@ -146,7 +146,7 @@ export default function PaymentThanks() {
             marginBottom: 12,
           }}
         >
-          You are in.
+          Vendor application received.
         </h1>
         <p
           style={{
@@ -159,8 +159,7 @@ export default function PaymentThanks() {
             margin: '0 auto 28px',
           }}
         >
-          Thanks for vending Porchfest 2026. We will email a receipt and reach out
-          with logistics details before the festival. Questions? Email{' '}
+          Thanks for submitting your vendor application for Porchfest 2026. We will email a receipt and follow up with logistics details before the festival. Questions? Email{' '}
           <a href="mailto:porchfest@cthna.org" style={{ color: C.teal }}>
             porchfest@cthna.org
           </a>
