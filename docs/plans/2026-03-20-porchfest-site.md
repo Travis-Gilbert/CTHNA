@@ -10,18 +10,13 @@
 
 ## 1. What This Is
 
-A two-page website for Carriage Town Porchfest 2026, a free neighborhood music and arts festival in Flint, MI. Page one is a public-facing landing page that sells the event to attendees and drives performer/vendor applications. Page two is a multi-step application form with category-specific flows for musicians, vendors, entertainers, and other participants. Built with Vite + React, deployed to Vercel. Submissions go to Formspree.
-
-The landing page prototype is `porchfest-landing-v3.html`. The application form prototype is `porchfest-apply.jsx`. Both are in the `docs/prototypes/` directory.
+A two-page website for Carriage Town Porchfest 2026, a free neighborhood music and arts festival in Flint, MI. Page one is a public-facing landing page that sells the event to attendees and drives performer/vendor applications. Page two is a streamlined application form: pick a category, fill in one page of fields, review, submit. Built with Vite + React, deployed to Vercel. Submissions go to Formspree.
 
 ## 2. Audience
 
-Two audiences:
-
-- **Attendees**: Flint residents, Michigan music fans, curious locals who saw a social post. They want to know what it is, when it is, and what it looks like. They should leave wanting to come.
-- **Applicants**: Musicians, food vendors, entertainers, and community organizations who want to perform or participate. They came from the landing page or a direct link. They need a frictionless application flow.
-
-Secondary audience: **Sponsors** looking for event partnership opportunities. The landing page includes a sponsor callout bar with a CTA to email.
+- **Attendees**: Flint residents, Michigan music fans, curious locals. They want to know what it is, when it is, and what it looks like.
+- **Applicants**: Musicians, food vendors, entertainers, community organizations. They need a fast, frictionless application.
+- **Sponsors**: Event partnership opportunities. Sponsor callout bar on landing page.
 
 ## 3. Route and File Map
 
@@ -35,37 +30,31 @@ src/
   porchfest-data.js               # ALL content: copy, categories, form options
   tokens.js                       # Design tokens, font shortcuts, shared styles
   components/
-    Nav.jsx                       # Shared sticky nav (both pages)
-    Footer.jsx                    # Shared footer (both pages)
+    Nav.jsx                       # Shared sticky nav
+    Footer.jsx                    # Shared footer
     ScrollReveal.jsx              # IntersectionObserver reveal wrapper
     Button.jsx                    # Primary/secondary button variants
   pages/
-    Landing.jsx                   # Landing page: hero, about, stats, gallery, how, apply CTA
-    Apply.jsx                     # Application page: category select, multi-step form, review, submit
+    Landing.jsx                   # Landing page
+    Apply.jsx                     # Application page (2-step: form + review)
   sections/
     Hero.jsx                      # Full-viewport hero with poster background
     About.jsx                     # "Every porch is a stage" section
     StatsBar.jsx                  # Dark stats strip (4 metrics)
-    Gallery.jsx                   # Asymmetric photo grid (5 images, 12-col CSS grid)
+    Gallery.jsx                   # Asymmetric photo grid
     HowItWorks.jsx                # 3-step cards
     ApplyCTA.jsx                  # "Play a porch" section with 4 category cards
     SponsorBar.jsx                # Single-line sponsor callout
   form/
-    CategorySelect.jsx            # Landing-within-apply: hero + 4 category cards
-    StepDots.jsx                  # Progress indicator bar
-    MusicianSteps.jsx             # 3-step musician form
-    VendorSteps.jsx               # 2-step vendor form
-    EntertainerStep.jsx           # 1-step entertainer form
-    OtherStep.jsx                 # 1-step other form
-    ContactStep.jsx               # Shared contact info step
-    ReviewStep.jsx                # Summary + consent + submit
+    ApplicationForm.jsx           # Step 1: category + all fields (one page)
+    ReviewStep.jsx                # Step 2: full summary + consent + submit
     SuccessScreen.jsx             # Post-submit confirmation
     field/
       TInput.jsx                  # Styled text input
       TTextarea.jsx               # Styled textarea
-      TSelect.jsx                 # Styled select dropdown
+      TSelect.jsx                 # Styled select (band size)
       RadioCard.jsx               # Selectable card with radio behavior
-      CheckChip.jsx               # Toggle chip with checkbox behavior
+      FileUpload.jsx              # Styled file input (license photo)
       Field.jsx                   # Label + input + hint + error wrapper
 index.html
 vite.config.js
@@ -78,324 +67,434 @@ package.json
 |---------|---------|---------|
 | react | UI | (already in template) |
 | react-dom | DOM rendering | (already in template) |
-| react-router-dom | Client-side routing (2 pages) | `npm i react-router-dom` |
+| react-router-dom | Client-side routing | `npm i react-router-dom` |
 | vite | Build tool | (already in template) |
 | @vitejs/plugin-react | JSX transform | (already in template) |
 
-No other dependencies. All animations are CSS-only (IntersectionObserver for scroll reveal, CSS transitions for hover states). Formspree handles form submission with a plain fetch POST.
+No other dependencies.
 
 ## 5. Design Tokens
 
-All tokens live in `src/tokens.js`. Every component imports from this file. No inline hex values anywhere except in tokens.js.
+All tokens live in `src/tokens.js`. No inline hex values anywhere else.
 
 ```javascript
 export const C = {
-  paper:      '#F2EDE5',
-  surface:    '#FAF6F1',
-  cream:      '#FFF8F0',
-  ink:        '#2A2420',
-  inkMuted:   '#6A5E52',
-  inkLight:   '#9A8E82',
-  dark:       '#1A1816',
-  darkWarm:   '#2A2420',
-  border:     '#D4CCC4',
-  borderLight:'#E8E0D6',
-  teal:       '#2A7A7B',
-  tealBright: '#35918F',
-  tealDim:    'rgba(42,122,123,.1)',
-  burg:       '#7A2E3A',
-  burgBright: '#963848',
-  burgDim:    'rgba(122,46,58,.1)',
-  gold:       '#C49A4A',
-  goldBright: '#D4AA52',
-  goldDim:    'rgba(196,154,74,.1)',
-  error:      '#A44A3A',
-  heroText:   '#F0EBE4',
+  paper: '#F2EDE5', surface: '#FAF6F1', cream: '#FFF8F0',
+  ink: '#2A2420', inkMuted: '#6A5E52', inkLight: '#9A8E82',
+  dark: '#1A1816', darkWarm: '#2A2420',
+  border: '#D4CCC4', borderLight: '#E8E0D6',
+  teal: '#2A7A7B', tealBright: '#35918F', tealDim: 'rgba(42,122,123,.1)',
+  burg: '#7A2E3A', burgBright: '#963848', burgDim: 'rgba(122,46,58,.1)',
+  gold: '#C49A4A', goldBright: '#D4AA52', goldDim: 'rgba(196,154,74,.1)',
+  error: '#A44A3A', heroText: '#F0EBE4',
 };
-
-export const serif  = { fontFamily: "'Vollkorn', Georgia, serif" };
-export const sans   = { fontFamily: "'Cabin', -apple-system, sans-serif" };
-export const mono   = { fontFamily: "'Courier Prime', monospace" };
-
-export const FONTS_URL = 'https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400..900;1,400&family=Cabin:ital,wght@0,400..700;1,400&family=Courier+Prime:wght@400;700&display=swap';
+export const serif = { fontFamily: "'Vollkorn', Georgia, serif" };
+export const sans  = { fontFamily: "'Cabin', -apple-system, sans-serif" };
+export const mono  = { fontFamily: "'Courier Prime', monospace" };
 ```
 
-**Color roles:**
-- **Teal**: primary interactive (buttons, CTA, tags, musician card, pull quote border, nav CTA)
-- **Burgundy**: highlight accent (stat numbers, hero h1 italic, gallery tag, "Applications Open" tag, entertainer card, nav mark, sponsor tag)
-- **Gold**: warm tertiary (vendor card only)
-- **Ground colors**: everything else
+**Color roles:** Teal = primary interactive. Burgundy = highlight accent. Gold = vendor card only. Ground = everything else.
 
-**Typography roles:**
-- **Vollkorn (serif)**: headlines, stat numbers, card titles, large text
-- **Cabin (sans)**: body copy, descriptions, form labels
-- **Courier Prime (mono)**: section tags, step labels, metadata, field labels, button text, footer. Uppercase, letterspaced.
+**Category accents:** Musician = teal, Vendor = gold, Entertainer = burgundy, Other = neutral (inkLight).
 
 ## 6. Build Order
 
 ```
-Batch 0: Project scaffold, tokens, data file, shared components (Nav, Footer, Button, ScrollReveal)
-Batch 1: Landing page (all sections from prototype)
-Batch 2: Application page (form components, category flows, validation, Formspree submit)
-Batch 3: Polish (localStorage persistence, scroll animations, accessibility audit, responsive fixes)
+Batch 0: Project scaffold, tokens, data file, shared components
+Batch 1: Landing page (all sections)
+Batch 2: Application page (simplified 2-step form)
+Batch 3: Polish (localStorage, mobile optimization, accessibility, responsive)
 ```
+
+## Copy Rules (apply everywhere)
+
+1. **All date references**: Friday, July 17, 2026 (not Saturday).
+2. **Avoid "no X, it's Y" constructions.** Write affirmative statements about what the event IS.
+3. **No em dashes** in code, comments, or copy.
+
+---
 
 ## Batch 0: Scaffold + Shared Components
 
 ### Read first
-- Reference prototype: `docs/prototypes/porchfest-landing-v3.html`
-- Reference prototype: `docs/prototypes/porchfest-apply.jsx`
+- `docs/prototypes/porchfest-landing-v3.html`
+- `docs/prototypes/porchfest-apply.jsx`
 
 ### Scaffold
+Remove `__init__.py`. Create Vite + React project in repo root. Install `react-router-dom`. Two routes: `/` (Landing) and `/apply` (Apply).
 
-Remove `__init__.py`. Create the Vite + React project in the repo root. Use `npm create vite@latest . -- --template react` or manually create the files. Install `react-router-dom`.
-
-Set up `index.html` with meta viewport, theme-color `#1A1816`, description, OG tags, Google Fonts preconnect + stylesheet link, reset styles (box-sizing, margin:0, body background: #F2EDE5).
-
-Set up `src/main.jsx` with BrowserRouter wrapping App. Set up `src/App.jsx` with two routes: `/` (Landing) and `/apply` (Apply).
-
-### New file: `src/tokens.js`
-All design tokens as defined in Section 5.
-
-### New file: `src/porchfest-data.js`
-Central data file. ALL copy, categories, form options, photo paths, metadata. Contains: META object, STATS array, CATEGORIES array (with inline SVG icon functions and accent token refs), GENRES, SETUP_NEEDS, FOOD_TYPES, VENDOR_NEEDS, ENT_TYPES arrays, HOW_STEPS array, ABOUT_COPY object, PHOTOS object, HERO_COPY object.
-
-**Critical copy corrections (do NOT carry over from the prototype without these fixes):**
-
-1. **All date references**: The event is **Friday, July 17, 2026** (not Saturday).
-2. **Application hero paragraph**: Use "Carriage Town Porchfest is Flint's free, walkable neighborhood music festival. Every July, performers take over front porches, street corners, and stages across a six-block stretch of Carriage Town while thousands of people wander from act to act all afternoon. The 7th edition is Friday, July 17, 2026 and we want you there."
-3. **About FAQ card "When and where?"**: Use "Friday, July 17, 2026. Carriage Town neighborhood, Flint, Michigan. The festival runs from the afternoon into the evening."
-4. **Entertainer step intro**: Do NOT use "Porchfest is not just music." Instead use: "Porchfest is music, comedy, visual art, and whatever else makes a block party come alive. Last year we had comedians, chalk artists, street performers, and a kids zone. We want even more of that energy in 2026. Tell us what you are bringing."
-5. **General rule**: Avoid "no X, it's Y" sentence constructions throughout all copy. Write affirmative statements about what the event IS, not what it is not.
-
-**Category accent mapping (different from prototype):**
-- Musician: teal (C.teal)
-- Vendor: gold (C.gold)
-- Entertainer: burgundy (C.burg)
-- Other: neutral (C.inkLight)
-
-### New file: `src/components/Nav.jsx`
-Client component. Fixed top nav. Left: burgundy "P" circle + "Porchfest 2026" mono. Right: text links (About, Gallery) hidden on mobile + teal "Apply Now" button. Transparent by default, dark backdrop + blur on scroll. On apply page: hide About/Gallery links.
-
-### New file: `src/components/Footer.jsx`
-Left: "Carriage Town Porchfest" + CTHNA label. Right: two link columns. Bottom: copyright. Dark background.
-
-### New file: `src/components/ScrollReveal.jsx`
-IntersectionObserver wrapper. Props: delay (maps to transition-delay: delay * 0.08s). Respects prefers-reduced-motion.
-
-### New file: `src/components/Button.jsx`
-Primary (teal bg, white text) and secondary (transparent, border) variants. Mono uppercase letterspaced.
-
-### Copy photos
-All 9 photos into `public/photos/`: poster-hero.jpg, photo-from-stage.jpg, photo-red-porch-dj.jpg, photo-stage-lights.jpg, photo-crowd-dance.jpg, photo-mc-street.jpg, photo-wide-crowd.jpg, photo-golden-hour.jpg, photo-porch-singer.jpg.
+### Files to create
+- `src/tokens.js` (Section 5 above)
+- `src/porchfest-data.js` (all copy, categories, photos, metadata)
+- `src/components/Nav.jsx` (fixed top, burgundy "P" mark, teal CTA, blur on scroll)
+- `src/components/Footer.jsx` (dark bg, links, copyright)
+- `src/components/ScrollReveal.jsx` (IntersectionObserver wrapper)
+- `src/components/Button.jsx` (primary teal, secondary outline)
+- Copy all 9 photos into `public/photos/`
 
 ### Verification
-- [ ] `npm run dev` serves both routes
-- [ ] Nav and Footer render on both pages
-- [ ] All 9 photos load
-- [ ] `npm run build` passes
+- [ ] Both routes serve, Nav + Footer render, photos load, `npm run build` passes
+
+---
 
 ## Batch 1: Landing Page
 
 ### Read first
-- `docs/prototypes/porchfest-landing-v3.html` (full structure, copy, responsive)
+- `docs/prototypes/porchfest-landing-v3.html` (canonical visual reference)
 - `src/porchfest-data.js`, `src/tokens.js`, all shared components
 
-### New file: `src/pages/Landing.jsx`
-Composes: Hero, PhotoStrip, About, StatsBar, Gallery, HowItWorks, ApplyCTA, SponsorBar.
+### Files to create
+All section components, composed by `src/pages/Landing.jsx`:
 
-### New file: `src/sections/Hero.jsx`
-Full viewport, poster-hero.jpg background, dark gradient overlay. Content at bottom-left: teal tag "7th Annual . Flint, Michigan", headline "Music lives on the *porch.*" (porch in burgundy-bright italic), paragraph, meta row (July 17, ~3,000, Free in burgundy-bright), two buttons. Scroll hint at bottom. ScrollReveal stagger.
-
-Responsive: headline clamps 44px min on mobile. Meta wraps. Buttons stack.
-
-### New file: `src/sections/About.jsx`
-2-col grid. Left: teal tag, "Every porch *is a stage.*" headline, 4 paragraphs with pull quote (teal border). Right: photo-porch-singer.jpg 480px rounded with overlay label.
-
-Responsive: single col on <800px.
-
-### New file: `src/sections/StatsBar.jsx`
-Dark strip. 4-col grid. Vollkorn 52px burgundy-bright values, mono labels.
-
-### New file: `src/sections/Gallery.jsx`
-Dark section. 12-col CSS grid: g1 cols 1-7 340px, g2 cols 8-12 340px, g3 cols 1-4 260px, g4 cols 5-8 260px, g5 cols 9-12 260px. Hover: scale(1.04).
-
-### New file: `src/sections/HowItWorks.jsx`
-Paper section. 3-col card grid. Numbered steps (01, 02, 03). Hover: translateY(-4px).
-
-### New file: `src/sections/ApplyCTA.jsx`
-Dark section. 2-col top (text + golden-hour photo). 4-col card grid linking to /apply with category params. Each card: colored icon, title, description, arrow.
-
-### New file: `src/sections/SponsorBar.jsx`
-Dark bar. Burgundy tag "Sponsors", headline, body, teal CTA mailto.
+1. **Hero.jsx**: Full viewport, poster-hero.jpg bg, dark gradient, headline "Music lives on the *porch.*" (porch in burgundy italic), meta row (July 17, ~3,000, Free), two buttons
+2. **PhotoStrip**: 4 images, asymmetric grid (2fr 1fr 1.5fr 1fr)
+3. **About.jsx**: 2-col, "Every porch is a stage.", pull quote, photo-porch-singer.jpg
+4. **StatsBar.jsx**: dark strip, 4 stats in burgundy-bright
+5. **Gallery.jsx**: dark section, 12-col asymmetric grid, 5 photos
+6. **HowItWorks.jsx**: paper bg, 3 numbered cards
+7. **ApplyCTA.jsx**: dark section, 4 category cards linking to /apply?cat=X
+8. **SponsorBar.jsx**: burgundy tag, headline, teal CTA mailto
 
 ### Verification
-- [ ] All 7 sections render in order
-- [ ] Hero poster fills viewport
-- [ ] Stats in burgundy-bright
-- [ ] Gallery asymmetric grid matches prototype
-- [ ] Apply cards link to /apply with params
-- [ ] Mobile stacks at 500, 640, 700, 800px
+- [ ] All 7 sections render, photos display, apply cards link correctly
+- [ ] Mobile stacks at 500/640/700/800px
 - [ ] `npm run build` passes
 
-## Batch 2: Application Page
+---
+
+## Batch 2: Application Page (Simplified)
+
+**THIS IS A COMPLETE REWRITE OF THE FORM. DO NOT USE THE MULTI-STEP WIZARD FROM THE PROTOTYPE.**
+
+The prototype had a category-specific multi-step form with 3-7 screens depending on category. That has been replaced with a 2-screen universal form. One page of fields, one review page, done.
 
 ### Read first
-- `docs/prototypes/porchfest-apply.jsx` (form logic reference, but apply copy corrections from this spec)
+- `docs/prototypes/porchfest-apply.jsx` (reference for visual style of inputs, cards, layout ONLY)
 - `src/porchfest-data.js`, `src/tokens.js`, `src/components/Nav.jsx`
 
 ### New file: `src/pages/Apply.jsx`
-Client component. State: stage, category, innerStep, formData, contact, agree, errors, submitting. On mount: check URL params for ?cat= pre-selection. Flow: category > form steps > contact > review > submit > done.
 
-### New file: `src/form/CategorySelect.jsx`
-Short dark hero, stats, 2x2 category card grid, "About the Event" FAQ cards.
+Client component. Two stages only: `form` and `review` (plus `done` after submit).
 
-**Copy corrections for this component:**
-- Hero paragraph: use the corrected version from Batch 0 copy corrections (mentions Friday, stages + porches)
-- FAQ "When and where?" card: "Friday, July 17, 2026" (not Saturday)
+State:
+```javascript
+const [stage, setStage] = useState('form');       // form | review | done
+const [category, setCategory] = useState(null);    // musician | vendor | entertainer | other
+const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  phone: '',
+  link: '',           // music, portfolio, menu, website
+  bandSize: '',       // musician only
+  hasLicense: '',     // vendor only: 'yes' | 'no'
+  licenseFile: null,  // vendor only: File object
+  porchfestBefore: '', // first-time | returning
+  local: '',           // flint | genesee | outside
+  anythingElse: '',   // optional textarea
+});
+const [agree, setAgree] = useState(false);
+const [errors, setErrors] = useState({});
+const [submitting, setSubmitting] = useState(false);
+```
 
-### New file: `src/form/StepDots.jsx`
-Progress dots. Active wider + colored. Step counter.
+On mount: check URL params for `?cat=musician` etc. If present, pre-select category.
 
-### Musician form: `src/form/MusicianSteps.jsx` (3 steps)
+### New file: `src/form/ApplicationForm.jsx`
 
-**Step 0 ("Where's your music?"):** music link (required), second link, artist name (required), genre (required select), band size (select). Copy is good as-is in prototype.
+**This is the entire form on a single scrollable page.**
 
-**Step 1 ("Tell us about your act"):** bio (required textarea), then TWO separate questions (this is a change from the prototype):
+#### Section 1: Category Select (top of page)
 
-1. **"Have you played Porchfest before?"** (radio, required)
-   - "First time applying"
-   - "Returning performer"
+Short dark hero section at top:
+- Teal tag: "Applications Open . 7th Annual"
+- Headline: "Be part of Porchfest."
+- Short body paragraph (corrected copy with Friday date)
+- Stat row: July 17, ~3,000, 20+ acts, Free
 
-2. **"Are you based in Flint?"** (radio)
-   - "Yes, Flint-based"
-   - "Nearby (Genesee County)"
-   - "Outside the area"
+Below the hero, on paper background:
+- "What are you applying as?" with 2x2 grid of category cards
+- Selected state: accent border + tinted bg + "Selected" label
+- **Rest of form appears below once a category is selected.** Smooth scroll-reveal.
 
-The prototype had these combined as a single "Porchfest History" radio with three options that weren't mutually exclusive. The split fixes the logic: someone can be both a returning performer AND Flint-based.
+#### Section 2: Application Fields (appears after category select)
 
-Add both fields to formData: `porchfestHistory` (required) and `flintBased` (optional).
+All on one page. Single scrollable form below category cards.
 
-**Step 2 ("What do you need on site?"):** set length (required radio: 30/45/60 min), equipment needs (check chips), bring own PA (radio), accessibility needs (textarea). Copy is good as-is.
+Tag: "Your Application" (in selected category accent color)
+Headline varies by category:
+- Musician: "Tell us about your music."
+- Vendor: "Tell us what you are serving."
+- Entertainer: "Tell us about your act."
+- Other: "Tell us what you have in mind."
 
-### Vendor form: `src/form/VendorSteps.jsx` (2 steps)
-Port from prototype. Copy is good. No changes needed.
+**Universal fields (all categories, in this order):**
 
-### Entertainer form: `src/form/EntertainerStep.jsx` (1 step)
+1. **Name** (required)
+   - Label: "Your Name" for musician/entertainer/other. "Business or Vendor Name" for vendor.
+   - `type="text"`
 
-**Copy correction for the intro paragraph.** Do NOT use "Porchfest is not just music." Instead:
+2. **Phone** (required)
+   - Label: "Phone Number"
+   - `type="tel"`, placeholder: "(810) 000-0000"
 
-Tag: "Your act"
-Headline: "What do you do?"
-Body: "Porchfest is music, comedy, visual art, and whatever else makes a block party come alive. Last year we had comedians, chalk artists, street performers, and a kids zone. We want even more of that energy in 2026. Tell us what you are bringing."
+3. **Email** (required, format validated)
+   - Label: "Email Address"
+   - `type="email"`, placeholder: "you@example.com"
 
-Fields: act name (required), act type (check chips), act description (required textarea), work link. Same as prototype.
+4. **Link to your work** (required for musician, optional for others)
+   - Label varies:
+     - Musician: "Link to Your Music" / hint: "SoundCloud, Spotify, YouTube, Bandcamp, a live video. Whatever represents you best."
+     - Vendor: "Instagram or Website" / hint: "We promote vendors on social before the event."
+     - Entertainer: "Link to Your Work" / hint: "A video, portfolio, Instagram, anything that shows what you do."
+     - Other: "Any Links?" / hint: "Website, social, anything relevant."
+   - `type="url"`
 
-### Other form: `src/form/OtherStep.jsx` (1 step)
-Port from prototype. Keep it minimal (name, description, link). No setup needs field. Copy is good as-is.
+**Musician-only field (shown when category === 'musician'):**
 
-### Contact step: `src/form/ContactStep.jsx`
-Name (required), email (required + validated), phone, city. Copy is good as-is.
+5. **Band Size**
+   - Label: "How many people in your act?"
+   - Select dropdown: Solo / Duo / 3 to 4 / 5 or more
+   - Not required but encouraged
 
-### Review step: `src/form/ReviewStep.jsx`
+**Vendor-only fields (shown when category === 'vendor'):**
 
-**Structural change from prototype: show ALL submitted data, not just key fields.**
+6. **Do you have a food service license?** (required for vendor)
+   - Two RadioCards: "Yes" / "No, I need to get one"
+   - If "No": show a hint below: "You will need a valid food service license to vend at Porchfest. Contact the Genesee County Health Department or email us at porchfest@cthna.org for guidance."
 
-The prototype only showed a subset (contact, genre, set length, music link). The updated review page should show every field the applicant filled in.
+7. **Upload your license** (shown only when hasLicense === 'yes', required)
+   - FileUpload component
+   - Label: "Upload a photo of your license"
+   - Hint: "JPEG or PNG. We just need to see it on file."
+   - Accept: `.jpg,.jpeg,.png,.pdf`
+   - Max file size: 10MB
+   - Shows filename + file size after selection, with a "Remove" button
+   - Styled to match the form aesthetic: dashed border box, teal accent on hover/active, drag-and-drop supported but click-to-browse as primary
+
+**Back to universal fields (all categories):**
+
+8. **Have you been to Porchfest before?** (required)
+   - Two RadioCards: "First time applying" / "Returning participant"
+
+9. **Are you local?** (required)
+   - Three RadioCards: "Yes, Flint-based" / "Nearby (Genesee County)" / "Outside the area"
+
+10. **Anything else you want us to know?** (optional)
+    - Label: "Anything Else?"
+    - Textarea, 4 rows
+    - Hint: "Optional. Tell us anything that does not fit above."
+    - Placeholder varies by category:
+      - Musician: "Your sound, your story, set length preference, equipment needs, accessibility requirements..."
+      - Vendor: "What is on the menu, your setup needs, space requirements..."
+      - Entertainer: "What your act looks like, how long it runs, what ages it works for..."
+      - Other: "Describe what you would like to bring to Porchfest 2026."
+
+**Below the fields:**
+- "Review Application" button (teal primary). Validates and advances to review.
+- Small text: "You will be able to review everything before submitting."
+
+**Layout:**
+- Max-width 640px, centered, single-column for all fields
+- Phone and Email can share a 2-column row on desktop (>500px), stacking on mobile
+
+### New file: `src/form/field/FileUpload.jsx`
+
+Styled file upload component.
+
+- Renders a dashed-border drop zone with a cloud/upload icon and "Choose file or drag here" text
+- Hidden `<input type="file">` triggered by click on the drop zone
+- `accept` prop for allowed file types
+- `maxSize` prop in bytes (default 10MB = 10485760)
+- On file select: validate type and size. If invalid, show error. If valid, call onChange with the File object.
+- After file selected: show a confirmation row with filename, file size (human readable), and a "Remove" button that clears the selection
+- Drag-and-drop: `onDragOver`/`onDrop` handlers on the drop zone
+- Styling: surface background, dashed border in border color, teal border + tealDim background on drag-over
+- Error states: red border if validation fails, error message below
+- Accessible: the hidden input has an aria-label, the drop zone has role="button" and keyboard support (Enter/Space to open file picker)
+
+### New file: `src/form/ReviewStep.jsx`
+
+Shows everything the applicant entered.
 
 Layout:
-- Dark header with category icon + display name (artist name / business name / act name / org name)
-- Body section: 2-column grid for short fields (contact, email, genre, set length, city, etc.)
-- Full-width blocks for long-form content (bio, food description, act description, proposal). These should display the full text, not truncated. Use a slightly different visual treatment: left border accent in category color, lighter background, full paragraph display.
-- Equipment/type selections shown as inline chip-style labels
+- Category badge bar at top (icon + category label + "Change" button that goes back to form)
+- Dark header card with applicant name in Vollkorn, category label in mono
+- Body: 2-column grid (label in mono caps, value in sans):
+  - Name, Phone, Email
+  - Link (clickable, word-break)
+  - Band Size (musician only, if filled)
+  - Food License status (vendor only): "Yes (uploaded)" or "Needs to obtain"
+  - License file name (vendor only, if uploaded): show filename as a chip
+  - Porchfest History, Local Status
+  - Anything Else (full-width block if provided)
+- Consent checkbox + legal copy + info box
+- "Submit Application" button (teal) + "Back" button (secondary)
 
-Field display order by category:
+### New file: `src/form/SuccessScreen.jsx`
 
-**Musician:** Contact, Email, City, Artist Name, Genre, Band Size, Set Length, Porchfest History, Flint-Based, Music Link, Second Link, Bio (full), Equipment Needs (chips), PA Status, Accessibility Needs (full if provided)
-
-**Vendor:** Contact, Email, City, Business Name, Vendor Type (chips), Instagram/Website, Footprint, On-Site Needs (chips), Vended Before, Food Description (full)
-
-**Entertainer:** Contact, Email, City, Act Name, Act Type (chips), Work Link, Act Description (full)
-
-**Other:** Contact, Email, City, Name/Org, Links, Proposal (full)
-
-After the data display: consent checkbox + legal copy + info box about Flint priority. Same as prototype.
-
-### Success screen: `src/form/SuccessScreen.jsx`
-Full dark screen, checkmark, confirmation message. Port from prototype, copy is good.
+Full dark screen. Teal checkmark circle. "Application Received" tag. "We got it, [name]." headline. Timeline body. CTHNA footer line.
 
 ### Form field components: `src/form/field/`
-TInput.jsx, TTextarea.jsx, TSelect.jsx, RadioCard.jsx, CheckChip.jsx, Field.jsx
 
-**Critical accessibility fixes from prototype:**
-- Hidden inputs: use sr-only positioning, NOT display:none
-- RadioCard/CheckChip: focus-visible ring on card border
-- TSelect: aria-label
-- Field: htmlFor/id pairs
-- Errors: role="alert" aria-live="polite"
+6 components:
 
-### Validation changes
-Add validation for the new `porchfestHistory` field on musician step 1:
+- **TInput.jsx**: Text input with focus ring. Supports type prop (text, email, tel, url).
+- **TTextarea.jsx**: Textarea with focus ring.
+- **TSelect.jsx**: Select dropdown (band size only).
+- **RadioCard.jsx**: Radio card. sr-only hidden input (NOT display:none). Focus-visible ring.
+- **FileUpload.jsx**: File upload with drag-and-drop (described above).
+- **Field.jsx**: Label (mono caps) + input + hint + error. htmlFor/id pairs. Errors: role="alert" aria-live="polite".
+
+### Validation
+
+On "Review Application" click:
 ```javascript
-if (innerStep === 1) {
-  if (!d.bio.trim()) e.bio = "Required";
-  if (!d.porchfestHistory) e.porchfestHistory = "Required";
+const e = {};
+if (!category) e.category = 'Pick a category';
+if (!formData.name.trim()) e.name = 'Required';
+if (!formData.phone.trim()) e.phone = 'Required';
+if (!formData.email.trim()) e.email = 'Required';
+else if (!/\S+@\S+\.\S+/.test(formData.email)) e.email = 'Enter a valid email';
+if (category === 'musician' && !formData.link.trim()) e.link = 'Add a link so we can hear you';
+if (category === 'vendor') {
+  if (!formData.hasLicense) e.hasLicense = 'Required';
+  if (formData.hasLicense === 'yes' && !formData.licenseFile) e.licenseFile = 'Please upload your license';
 }
+if (!formData.porchfestBefore) e.porchfestBefore = 'Required';
+if (!formData.local) e.local = 'Required';
+```
+
+On submit: `if (!agree) e.agree = 'Please agree to continue';`
+
+Scroll to first error on validation failure.
+
+### Formspree submission
+
+**IMPORTANT: Use FormData (multipart/form-data), not JSON, because of the file upload.**
+
+Formspree supports file attachments via multipart form submission. All submissions (even non-vendor) use FormData for consistency.
+
+```javascript
+const fd = new FormData();
+fd.append('category', category);
+fd.append('name', formData.name);
+fd.append('phone', formData.phone);
+fd.append('email', formData.email);
+fd.append('link', formData.link);
+fd.append('bandSize', formData.bandSize);
+fd.append('hasLicense', formData.hasLicense);
+fd.append('porchfestBefore', formData.porchfestBefore);
+fd.append('local', formData.local);
+fd.append('anythingElse', formData.anythingElse);
+
+if (formData.licenseFile) {
+  fd.append('licensePhoto', formData.licenseFile, formData.licenseFile.name);
+}
+
+await fetch(FORMSPREE_ENDPOINT, {
+  method: 'POST',
+  body: fd,
+  headers: { Accept: 'application/json' },
+  // Do NOT set Content-Type header. The browser sets it
+  // automatically with the correct multipart boundary.
+});
 ```
 
 ### Verification
-- [ ] All 4 category flows work
-- [ ] URL param pre-selection works
-- [ ] Musician step 1 shows TWO separate questions (history + Flint-based)
-- [ ] Validation fires on porchfestHistory (required) but not flintBased (optional)
-- [ ] Review page shows ALL submitted data including full bio/description text
-- [ ] Review page long-form fields display as full paragraphs, not truncated
-- [ ] Entertainer intro uses corrected copy (affirmative, not "not just music")
-- [ ] All date references say "Friday" not "Saturday"
-- [ ] Validation, error display, email format check
-- [ ] Formspree POST fires (includes porchfestHistory and flintBased fields)
-- [ ] Consent checkbox blocks submit when unchecked
-- [ ] Keyboard navigation works through all fields
+- [ ] Category select shows 4 cards, form appears after selection
+- [ ] URL param `?cat=musician` pre-selects and shows form
+- [ ] Band Size field only appears for musician category
+- [ ] Food license question only appears for vendor category
+- [ ] License file upload only appears when "Yes" is selected
+- [ ] "No" license answer shows guidance hint text
+- [ ] File upload accepts jpg/jpeg/png/pdf, rejects other types
+- [ ] File upload rejects files over 10MB with error message
+- [ ] File upload shows filename and size after selection
+- [ ] "Remove" button clears the file selection
+- [ ] Vendor validation requires hasLicense and licenseFile (when yes)
+- [ ] Link field label/hint changes per category
+- [ ] "Anything else" placeholder changes per category
+- [ ] Name, Phone, Email, Porchfest Before, Local all required
+- [ ] Link required for musician, optional for others
+- [ ] Email format validation works
+- [ ] Review page shows all entered data including license status
+- [ ] "Change" returns to form with data preserved (including file)
+- [ ] Consent checkbox blocks submit
+- [ ] Formspree POST uses FormData (multipart), includes file attachment
+- [ ] Success screen shows applicant name
+- [ ] All inputs keyboard-navigable, errors announced by screen reader
 - [ ] `npm run build` passes
+
+---
 
 ## Batch 3: Polish
 
 ### Read first
-- Both prototypes, all components from Batches 0-2
+- All components from Batches 0-2
+- `docs/plans/2026-03-20-porchfest-mobile.md` (mobile optimization plan)
 
 ### localStorage persistence
 Save form state on every change. Restore on mount. Clear on submit. "Start Over" link.
 
+**Note on file persistence**: File objects cannot be stored in localStorage. On restore, `licenseFile` will be null. If a vendor had previously uploaded a file and refreshes, they will need to re-upload. This is acceptable. Show a note on the file upload field: "Please re-select your file" if hasLicense is 'yes' but licenseFile is null.
+
+### Mobile optimization (from mobile plan)
+- Responsive image pipeline (WebP + srcset + sizes)
+- `loading="eager"` + `fetchpriority="high"` on hero only, lazy everywhere else
+- `aspect-ratio` on all images (CLS prevention)
+- Input font-size 16px on mobile (iOS zoom fix)
+- URL fields use `type="url"`
+- Sticky form submit button on mobile
+- 2-col grids stack below 500px
+- Full-width hero buttons on mobile
+- Safe area insets on nav and sticky elements
+- Solid nav bg on mobile (backdrop-filter fallback)
+- Full OG tags (poster as og:image) for both pages
+- `viewport-fit=cover`
+
 ### Accessibility audit
-Alt text, heading hierarchy, focus-visible, skip-to-content, prefers-reduced-motion, color contrast.
+- sr-only hidden inputs (not display:none)
+- htmlFor/id pairs on all fields
+- role="alert" aria-live="polite" on errors
+- Focus-visible outlines everywhere
+- Skip-to-content link
+- prefers-reduced-motion
+- Color contrast check
+- Single h1 per page, h2 for sections
+- FileUpload: keyboard accessible (Enter/Space to open picker), aria-label on hidden input
 
 ### Responsive audit
 
 | Width | Behavior |
 |-------|----------|
 | 1100px+ | Full layout |
-| 800px | About/apply-top stack, cards 2-col |
+| 800px | About/apply-top stack, landing cards 2-col |
 | 700px | How-it-works stacks |
 | 640px | Nav links hide, strips/stats/gallery 2-col |
-| 500px | Apply cards 1-col |
-| <400px | Category cards 1-col, form grids stack |
+| 500px | Landing apply cards 1-col, form phone/email stack |
+| <400px | Category cards 1-col |
 
 ### Link wiring
-Landing "Apply to Perform" > /apply. Category cards > /apply?cat=X. Apply "Back" > /. Brand > /. Footer links correct.
+Landing "Apply to Perform" > /apply. Category cards > /apply?cat=X. Apply brand > /. Footer correct.
 
 ### Verification
-- [ ] localStorage persists and clears correctly
+- [ ] localStorage persists and clears correctly (file re-upload note shows)
+- [ ] Responsive images load correct sizes per viewport
+- [ ] Lighthouse mobile score 90+
 - [ ] All scroll reveals fire
 - [ ] prefers-reduced-motion respected
-- [ ] Tab navigation works everywhere
+- [ ] Tab navigation works everywhere (including file upload)
 - [ ] All breakpoints correct
 - [ ] `npm run build` and `npm run preview` pass
+
+---
 
 ## Reference Prototypes
 
 | File | Contents | Use for |
 |------|----------|---------|
 | `docs/prototypes/porchfest-landing-v3.html` | Full landing page | Layout, copy, colors, responsive, scroll timing |
-| `docs/prototypes/porchfest-apply.jsx` | Application form (original) | Form logic, validation, step flow, field layout. **Apply copy corrections from this spec before using.** |
+| `docs/prototypes/porchfest-apply.jsx` | Original multi-step form | Visual style of inputs/cards ONLY. **Do NOT use the multi-step wizard. This spec overrides the prototype entirely for the form.** |
+| `docs/plans/2026-03-20-porchfest-mobile.md` | Mobile optimization plan | Image pipeline, touch targets, iOS fixes, perf budget |
 
-Read both at the start of every batch. The spec overrides the prototype wherever they conflict.
+Read prototypes at the start of every batch. **This spec overrides the prototypes wherever they conflict.**
