@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useSubmit } from '@formspree/react';
 import { useSearchParams } from 'react-router-dom';
 import { C, mono } from '../tokens';
 import { CATEGORIES, accentColor } from '../porchfest-data';
@@ -8,7 +9,7 @@ import ReviewStep from '../form/ReviewStep';
 import SuccessScreen from '../form/SuccessScreen';
 
 const STORAGE_KEY = 'porchfest-2026-application';
-const FORMSPREE = 'https://formspree.io/f/mbdzblrb';
+const FORMSPREE_FORM_ID = 'mbdzblrb';
 
 function getInitialState() {
   try {
@@ -36,6 +37,7 @@ export default function Apply() {
   const [agree, setAgree] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const submitToFormspree = useSubmit(FORMSPREE_FORM_ID);
 
   // Persist to localStorage
   useEffect(() => {
@@ -140,29 +142,40 @@ export default function Apply() {
       return;
     }
 
+    const payload = {
+      category,
+      ...formData,
+      ...contact,
+      submittedAt: new Date().toISOString(),
+    };
+
+    setErrors(prev => {
+      const next = { ...prev };
+      delete next.submit;
+      return next;
+    });
+
     setSubmitting(true);
     try {
-      const payload = {
-        category,
-        ...formData,
-        ...contact,
-        submittedAt: new Date().toISOString(),
-      };
-      const res = await fetch(FORMSPREE, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) {
+      const result = await submitToFormspree(payload);
+      if (result.kind === 'success') {
         localStorage.removeItem(STORAGE_KEY);
         setStage('done');
-      } else {
-        setErrors({ submit: 'Something went wrong. Please try again.' });
+        return;
       }
+
+      const formErrors = result.getFormErrors();
+      const fieldErrors = result.getAllFieldErrors().flatMap(([, errs]) => errs);
+      const message =
+        formErrors[0]?.message ||
+        fieldErrors[0]?.message ||
+        'Something went wrong. Please try again.';
+      setErrors({ submit: message });
     } catch {
       setErrors({ submit: 'Network error. Please check your connection.' });
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
   const handleStartOver = () => {
