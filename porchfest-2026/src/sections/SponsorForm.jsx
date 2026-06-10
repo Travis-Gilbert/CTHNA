@@ -222,14 +222,7 @@ function SuccessCard() {
           margin: '0 auto 24px',
         }}
       >
-        We will reply within 48 hours. Questions before then? Email{' '}
-        <a
-          href="mailto:porchfest@cthna.org"
-          style={{ color: C.tealBright, textDecoration: 'none' }}
-        >
-          porchfest@cthna.org
-        </a>
-        .
+        We will reply within 48 hours.
       </p>
       <Link
         to="/"
@@ -580,11 +573,7 @@ export default function SponsorForm() {
                 textAlign: 'center',
               }}
             >
-              Something went wrong. Please try again or email{' '}
-              <a href="mailto:porchfest@cthna.org" style={{ color: C.error }}>
-                porchfest@cthna.org
-              </a>
-              .
+              Something went wrong. Please try again.
             </p>
           )}
         </form>

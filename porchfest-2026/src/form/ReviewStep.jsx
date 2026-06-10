@@ -1,6 +1,5 @@
 import { C, serif, sans, mono } from '../tokens';
-import { CATEGORIES, accentColor, accentDim, VENDOR_TIERS } from '../porchfest-data';
-import VendorTierPicker from './VendorTierPicker';
+import { CATEGORIES, accentColor, accentDim } from '../porchfest-data';
 
 /* ── Display helpers ── */
 
@@ -95,18 +94,6 @@ function formatPA(val) {
   return val;
 }
 
-/* ── Vendor fee summary ── */
-function feeForVendor(vendorTier, customAmount) {
-  if (!vendorTier) return null;
-  if (vendorTier === 'pay-what-you-can') {
-    const n = Number(customAmount);
-    if (!Number.isFinite(n) || n <= 0) return null;
-    return { label: 'Pay What You Can', display: `$${n.toFixed(0)}` };
-  }
-  const t = VENDOR_TIERS.find((x) => x.id === vendorTier);
-  return t ? { label: t.label, display: t.priceDisplay } : null;
-}
-
 export default function ReviewStep({
   category,
   formData,
@@ -116,25 +103,13 @@ export default function ReviewStep({
   errors,
   submitting,
   onSubmit,
-  vendorTier,
-  customAmount,
-  onVendorTierChange,
-  onCustomAmountChange,
 }) {
   const catData = CATEGORIES.find(c => c.id === category);
   const accent = catData ? accentColor(catData.accent) : C.teal;
   const dim = catData ? accentDim(catData.accent) : C.tealDim;
   const Icon = catData?.icon;
   const displayName = getDisplayName(category, formData);
-  const isVendor = category === 'vendor';
-  const fee = isVendor ? feeForVendor(vendorTier, customAmount) : null;
-  const submitLabel = isVendor
-    ? submitting
-      ? 'Starting checkout...'
-      : fee
-      ? `Pay ${fee.display} & Submit`
-      : 'Pay & Submit'
-    : submitting
+  const submitLabel = submitting
     ? 'Submitting...'
     : 'Submit Application';
 
@@ -246,18 +221,6 @@ export default function ReviewStep({
         </div>
       </div>
 
-      {/* Vendor fee tier (vendors only) */}
-      {isVendor && (
-        <VendorTierPicker
-          selectedTier={vendorTier}
-          customAmount={customAmount}
-          onTierChange={onVendorTierChange}
-          onCustomAmountChange={onCustomAmountChange}
-          errors={errors}
-          accent={accent}
-        />
-      )}
-
       {/* Consent */}
       <label style={{
         display: 'flex',
@@ -330,20 +293,6 @@ export default function ReviewStep({
         {submitLabel}
       </button>
 
-      {isVendor && (
-        <p
-          style={{
-            ...sans,
-            fontSize: 12,
-            color: C.inkLight,
-            marginTop: 12,
-            textAlign: 'center',
-            lineHeight: 1.5,
-          }}
-        >
-          Secure payment by Stripe. We never see your card details.
-        </p>
-      )}
     </>
   );
 }

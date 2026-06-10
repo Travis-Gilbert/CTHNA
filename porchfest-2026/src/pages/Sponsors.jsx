@@ -53,7 +53,7 @@ function BottomCTA() {
               marginBottom: 6,
             }}
           >
-            Questions? Let's talk.
+            Questions? Start with the form.
           </h3>
           <p
             style={{
@@ -63,11 +63,11 @@ function BottomCTA() {
               maxWidth: '40ch',
             }}
           >
-            Email us and we will find a time to talk about how your brand fits into Porchfest.
+            Send your sponsorship interest and we will find a time to talk about how your brand fits into Porchfest.
           </p>
         </div>
         <a
-          href="mailto:porchfest@cthna.org"
+          href="#sponsor-form"
           style={{
             ...mono,
             fontSize: 10,
@@ -83,7 +83,7 @@ function BottomCTA() {
             display: 'inline-block',
           }}
         >
-          porchfest@cthna.org
+          Sponsor Interest
         </a>
       </div>
     </section>

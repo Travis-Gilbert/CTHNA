@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { C, mono } from '../tokens';
-import { CATEGORIES, accentColor, VENDOR_TIERS } from '../porchfest-data';
+import { CATEGORIES, accentColor } from '../porchfest-data';
 import CategorySelect from '../form/CategorySelect';
 import ApplicationForm from '../form/ApplicationForm';
 import ReviewStep from '../form/ReviewStep';
@@ -9,7 +9,6 @@ import SuccessScreen from '../form/SuccessScreen';
 
 const STORAGE_KEY = 'porchfest-2026-application';
 const FORMSPREE = 'https://formspree.io/f/mbdzblrb';
-const STRIPE_CHECKOUT_ENDPOINT = '/api/create-checkout-session';
 
 function getInitialState() {
   try {
@@ -23,33 +22,32 @@ function getInitialState() {
 
 export default function Apply() {
   const [searchParams] = useSearchParams();
-  const saved = getInitialState();
-  const queryCategory = searchParams.get('cat');
-  const initialCategory =
-    saved?.category ||
-    (queryCategory && CATEGORIES.some(c => c.id === queryCategory) ? queryCategory : null);
+  const [saved] = useState(() => getInitialState());
+  const urlCategory = searchParams.get('cat');
+  const preselectedCategory =
+    !saved && urlCategory && CATEGORIES.some(c => c.id === urlCategory)
+      ? urlCategory
+      : null;
 
-  const [stage, setStage] = useState(saved?.stage || (initialCategory ? 'form' : 'category'));
-  const [category, setCategory] = useState(initialCategory);
+  const [stage, setStage] = useState(saved?.stage || (preselectedCategory ? 'form' : 'category'));
+  const [category, setCategory] = useState(saved?.category || preselectedCategory);
   const [formData, setFormData] = useState(saved?.formData || {});
   const [contact, setContact] = useState(saved?.contact || { name: '', email: '', phone: '', city: '' });
   const [agree, setAgree] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [vendorTier, setVendorTier] = useState(saved?.vendorTier || '');
-  const [customAmount, setCustomAmount] = useState(saved?.customAmount || '');
 
   // Persist to localStorage
   useEffect(() => {
     if (stage === 'done') return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        stage, category, formData, contact, vendorTier, customAmount,
+        stage, category, formData, contact,
       }));
     } catch {
       // localStorage may be unavailable in private mode.
     }
-  }, [stage, category, formData, contact, vendorTier, customAmount]);
+  }, [stage, category, formData, contact]);
 
   // Scroll to top on stage change
   useEffect(() => {
@@ -136,83 +134,12 @@ export default function Apply() {
     }
   };
 
-  const validateVendorPayment = () => {
-    const errs = {};
-    if (!vendorTier) {
-      errs.tier = 'Pick a vendor option';
-      return errs;
-    }
-    if (vendorTier === 'pay-what-you-can') {
-      const n = Number(customAmount);
-      if (!Number.isFinite(n) || n < 1) {
-        errs.customAmount = 'Enter at least $1';
-      }
-    }
-    return errs;
-  };
-
   const handleSubmit = async () => {
     if (!agree) {
       setErrors({ agree: 'You must agree to continue' });
       return;
     }
 
-    // Vendors go through Stripe Checkout; webhook posts to Formspree on paid event.
-    if (category === 'vendor') {
-      const vErrs = validateVendorPayment();
-      if (Object.keys(vErrs).length > 0) {
-        setErrors(vErrs);
-        scrollToFirstError();
-        return;
-      }
-
-      setSubmitting(true);
-      try {
-        const customAmountCents =
-          vendorTier === 'pay-what-you-can'
-            ? Math.round(Number(customAmount) * 100)
-            : null;
-
-        const res = await fetch(STRIPE_CHECKOUT_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            tier: vendorTier,
-            customAmountCents,
-            applicantData: {
-              category,
-              ...contact,
-              ...formData,
-              submittedAt: new Date().toISOString(),
-            },
-          }),
-        });
-
-        if (!res.ok) {
-          const body = await res.json().catch(() => ({}));
-          setErrors({ submit: body?.error || 'Could not start checkout. Please try again.' });
-          setSubmitting(false);
-          return;
-        }
-
-        const { url } = await res.json();
-        if (!url) {
-          setErrors({ submit: 'Checkout session missing redirect URL.' });
-          setSubmitting(false);
-          return;
-        }
-
-        // Redirect to Stripe-hosted checkout. localStorage is cleared on /apply/thanks.
-        window.location.href = url;
-        return;
-      } catch {
-        setErrors({ submit: 'Network error. Please check your connection.' });
-        setSubmitting(false);
-        return;
-      }
-    }
-
-    // Non-vendors: existing Formspree-only path.
     setSubmitting(true);
     try {
       const payload = {
@@ -246,28 +173,7 @@ export default function Apply() {
     setContact({ name: '', email: '', phone: '', city: '' });
     setAgree(false);
     setErrors({});
-    setVendorTier('');
-    setCustomAmount('');
   };
-
-  const handleVendorTierChange = useCallback((id) => {
-    setVendorTier(id);
-    setErrors((prev) => {
-      const next = { ...prev };
-      delete next.tier;
-      delete next.customAmount;
-      return next;
-    });
-  }, []);
-
-  const handleCustomAmountChange = useCallback((val) => {
-    setCustomAmount(val);
-    setErrors((prev) => {
-      const next = { ...prev };
-      delete next.customAmount;
-      return next;
-    });
-  }, []);
 
   const handleSelectCategory = (id) => {
     setCategory(id);
@@ -354,10 +260,6 @@ export default function Apply() {
               errors={errors}
               submitting={submitting}
               onSubmit={handleSubmit}
-              vendorTier={vendorTier}
-              customAmount={customAmount}
-              onVendorTierChange={handleVendorTierChange}
-              onCustomAmountChange={handleCustomAmountChange}
             />
           )}
 
