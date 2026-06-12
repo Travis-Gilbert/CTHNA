@@ -162,7 +162,12 @@ export default function PaymentThanks() {
         >
           {submitted
             ? 'Thanks for applying to vend at Porchfest 2026. We will review your application and reach out with logistics details before the festival.'
-            : 'Thanks for vending Porchfest 2026. We will email a receipt and reach out with logistics details before the festival.'}
+            : 'Thanks for vending Porchfest 2026. We will email a receipt and reach out with logistics details before the festival.'}{' '}
+          Questions? Email{' '}
+          <a href="mailto:porchfest@cthna.org" style={{ color: C.teal }}>
+            porchfest@cthna.org
+          </a>
+          .
         </p>
         <Link
           to="/"

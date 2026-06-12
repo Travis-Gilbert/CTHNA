@@ -222,7 +222,11 @@ function SuccessCard() {
           margin: '0 auto 24px',
         }}
       >
-        We will reply within 48 hours.
+        We will reply within 48 hours. You can also email{' '}
+        <a href="mailto:porchfest@cthna.org" style={{ color: C.tealBright }}>
+          porchfest@cthna.org
+        </a>
+        .
       </p>
       <Link
         to="/"
@@ -573,7 +577,11 @@ export default function SponsorForm() {
                 textAlign: 'center',
               }}
             >
-              Something went wrong. Please try again.
+              Something went wrong. Please try again or email{' '}
+              <a href="mailto:porchfest@cthna.org" style={{ color: C.error }}>
+                porchfest@cthna.org
+              </a>
+              .
             </p>
           )}
         </form>
